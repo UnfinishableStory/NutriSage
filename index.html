@@ -17,7 +17,16 @@
   --shadow:0 4px 24px rgba(45,90,61,0.10); --shadow-lg:0 12px 48px rgba(45,90,61,0.18);
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;overflow:hidden;}
+
+body.dark {
+  --cream:#0F1A13; --ink:#E8F2EC; --ink-light:#A8C4B0; --ink-muted:#6A8A72;
+  --white:#1A2E20; --border:rgba(120,200,140,0.12); --border-strong:rgba(120,200,140,0.22);
+  --red-pale:#2A1A15; --gold-pale:#2A2210; --sage-pale:#0F2018;
+  --shadow:0 4px 24px rgba(0,0,0,0.4); --shadow-lg:0 12px 48px rgba(0,0,0,0.5);
+}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;overflow:hidden;transition:background 0.3s,color 0.3s;}
+.dark-toggle{width:36px;height:36px;border-radius:9px;border:1px solid var(--border-strong);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:all 0.15s;}
+.dark-toggle:hover{background:var(--sage-pale);border-color:var(--sage);}
 
 /* ── AUTH SCREEN ── */
 #auth-screen{position:fixed;inset:0;background:linear-gradient(135deg,#1a3528 0%,#2D5A3D 60%,#3d7a55 100%);display:flex;align-items:center;justify-content:center;z-index:9999;}
@@ -507,16 +516,23 @@ function parseJwt(token) {
 // ══════════════════════════════════════════════
 async function loadData() {
   if (state.user.isGuest) {
-    const raw = localStorage.getItem('ns_guest_data');
-    if (raw) { try { const d = JSON.parse(raw); if(d.meals) state.meals=d.meals; if(d.chats) state.chats=d.chats; if(d.goals) state.goals=d.goals; } catch(e){} }
+    // FIX 3: Guests get a fresh session every time — never load previous guest data
+    state.meals = { Breakfast:[], Lunch:[], Dinner:[], Snacks:[] };
+    state.chats = [];
+    state.goals = { calories:2000, protein:150, carbs:225, fat:67 };
   } else {
+    // FIX 2: Load per-user data from JSONBin using email as key
     try {
       const res = await fetch(JSONBIN_URL+'/latest', { headers:{'X-Access-Key':JSONBIN_KEY} });
       const data = await res.json();
       if (data.record) {
-        const userKey = btoa(state.user.email);
+        const userKey = 'u_' + btoa(state.user.email).replace(/=/g,'');
         const ud = data.record[userKey];
-        if (ud) { if(ud.meals) state.meals=ud.meals; if(ud.chats) state.chats=ud.chats; if(ud.goals) state.goals=ud.goals; }
+        if (ud) {
+          if(ud.meals) state.meals = ud.meals;
+          if(ud.chats) state.chats = ud.chats;
+          if(ud.goals) state.goals = ud.goals;
+        }
       }
     } catch(e) { toast('Could not load saved data', true); }
   }
@@ -528,27 +544,23 @@ async function loadData() {
 
 let _saveTimer=null;
 async function persistData() {
+  // FIX 3: Never save guest data to localStorage
+  if (state.user.isGuest) return;
   clearTimeout(_saveTimer);
   _saveTimer = setTimeout(async () => {
-    const payload = { meals:state.meals, chats:state.chats, goals:state.goals };
-    if (state.user.isGuest) {
-      localStorage.setItem('ns_guest_data', JSON.stringify(payload));
-    } else {
-      try {
-        // Read current bin, update user's key, write back
-        const res = await fetch(JSONBIN_URL+'/latest', { headers:{'X-Access-Key':JSONBIN_KEY} });
-        const data = await res.json();
-        const record = data.record || {};
-        const userKey = btoa(state.user.email);
-        record[userKey] = payload;
-        await fetch(JSONBIN_URL, {
-          method:'PUT',
-          headers:{'Content-Type':'application/json','X-Access-Key':JSONBIN_KEY},
-          body: JSON.stringify(record)
-        });
-        toast('✓ Saved');
-      } catch(e) { toast('Save failed', true); }
-    }
+    try {
+      const res = await fetch(JSONBIN_URL+'/latest', { headers:{'X-Access-Key':JSONBIN_KEY} });
+      const data = await res.json();
+      const record = data.record || {};
+      const userKey = 'u_' + btoa(state.user.email).replace(/=/g,'');
+      record[userKey] = { meals:state.meals, chats:state.chats, goals:state.goals };
+      await fetch(JSONBIN_URL, {
+        method:'PUT',
+        headers:{'Content-Type':'application/json','X-Access-Key':JSONBIN_KEY},
+        body: JSON.stringify(record)
+      });
+      toast('✓ Saved');
+    } catch(e) { toast('Save failed', true); }
   }, 900);
 }
 
