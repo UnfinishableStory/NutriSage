@@ -514,27 +514,50 @@ function parseJwt(token) {
 // ══════════════════════════════════════════════
 // DATA LOAD / SAVE (JSONBin for signed-in, localStorage for guests)
 // ══════════════════════════════════════════════
+function userLocalKey() {
+  // Stable localStorage key per signed-in user
+  return 'ns_user_' + state.user.email.replace(/[^a-z0-9]/gi, '_');
+}
+
 async function loadData() {
   if (state.user.isGuest) {
-    // FIX 3: Guests get a fresh session every time — never load previous guest data
+    // Guests always start fresh — no persistence
     state.meals = { Breakfast:[], Lunch:[], Dinner:[], Snacks:[] };
     state.chats = [];
     state.goals = { calories:2000, protein:150, carbs:225, fat:67 };
   } else {
-    // FIX 2: Load per-user data from JSONBin using email as key
+    // 1. Load from localStorage first (instant, reliable)
+    const localKey = userLocalKey();
+    const localRaw = localStorage.getItem(localKey);
+    if (localRaw) {
+      try {
+        const d = JSON.parse(localRaw);
+        if(d.meals) state.meals = d.meals;
+        if(d.chats) state.chats = d.chats;
+        if(d.goals) state.goals = d.goals;
+      } catch(e) {}
+    }
+    // 2. Also try JSONBin in background to sync across devices
     try {
       const res = await fetch(JSONBIN_URL+'/latest', { headers:{'X-Access-Key':JSONBIN_KEY} });
       const data = await res.json();
       if (data.record) {
-        const userKey = 'u_' + btoa(state.user.email).replace(/=/g,'');
+        const userKey = 'u_' + state.user.email.replace(/[^a-z0-9]/gi, '_');
         const ud = data.record[userKey];
         if (ud) {
-          if(ud.meals) state.meals = ud.meals;
-          if(ud.chats) state.chats = ud.chats;
-          if(ud.goals) state.goals = ud.goals;
+          // Only use JSONBin data if it has more chats than local (more up to date)
+          const localChats = state.chats.length;
+          const remoteChats = (ud.chats||[]).length;
+          if (remoteChats >= localChats) {
+            if(ud.meals) state.meals = ud.meals;
+            if(ud.chats) state.chats = ud.chats;
+            if(ud.goals) state.goals = ud.goals;
+            // Sync back to localStorage
+            localStorage.setItem(localKey, JSON.stringify({ meals:state.meals, chats:state.chats, goals:state.goals }));
+          }
         }
       }
-    } catch(e) { toast('Could not load saved data', true); }
+    } catch(e) { console.warn('JSONBin sync failed, using local data'); }
   }
   renderChatList();
   newChat();
@@ -544,23 +567,26 @@ async function loadData() {
 
 let _saveTimer=null;
 async function persistData() {
-  // FIX 3: Never save guest data to localStorage
-  if (state.user.isGuest) return;
+  if (state.user.isGuest) return; // Guests never persist
+  const payload = { meals:state.meals, chats:state.chats, goals:state.goals };
+  // Always save to localStorage immediately (fast, reliable)
+  localStorage.setItem(userLocalKey(), JSON.stringify(payload));
+  // Then sync to JSONBin in background
   clearTimeout(_saveTimer);
   _saveTimer = setTimeout(async () => {
     try {
       const res = await fetch(JSONBIN_URL+'/latest', { headers:{'X-Access-Key':JSONBIN_KEY} });
       const data = await res.json();
       const record = data.record || {};
-      const userKey = 'u_' + btoa(state.user.email).replace(/=/g,'');
-      record[userKey] = { meals:state.meals, chats:state.chats, goals:state.goals };
+      const userKey = 'u_' + state.user.email.replace(/[^a-z0-9]/gi, '_');
+      record[userKey] = payload;
       await fetch(JSONBIN_URL, {
         method:'PUT',
         headers:{'Content-Type':'application/json','X-Access-Key':JSONBIN_KEY},
         body: JSON.stringify(record)
       });
       toast('✓ Saved');
-    } catch(e) { toast('Save failed', true); }
+    } catch(e) { toast('Saved locally (sync failed)', false); }
   }, 900);
 }
 
