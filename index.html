@@ -18,7 +18,7 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;overflow:hidden;}
- 
+
 /* ── AUTH SCREEN ── */
 #auth-screen{position:fixed;inset:0;background:linear-gradient(135deg,#1a3528 0%,#2D5A3D 60%,#3d7a55 100%);display:flex;align-items:center;justify-content:center;z-index:9999;}
 .auth-card{background:var(--white);border-radius:var(--radius-lg);padding:2.8rem 2.5rem;width:100%;max-width:400px;text-align:center;box-shadow:var(--shadow-lg);}
@@ -35,14 +35,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);m
 .guest-btn{width:100%;padding:0.8rem;border:none;border-radius:12px;background:var(--sage);color:var(--white);font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:600;cursor:pointer;transition:background 0.15s;}
 .guest-btn:hover{background:var(--sage-light);}
 .auth-note{font-size:0.71rem;color:var(--ink-muted);margin-top:1.2rem;line-height:1.5;}
- 
- 
- 
+
+
+
 /* ── TOAST ── */
 #toast{position:fixed;bottom:1.5rem;right:1.5rem;padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:500;background:var(--sage);color:white;opacity:0;transition:opacity 0.3s;z-index:500;pointer-events:none;}
 #toast.show{opacity:1;}
 #toast.error{background:var(--red);}
- 
+
 /* ── LAYOUT ── */
 nav{display:flex;align-items:center;justify-content:space-between;padding:0.85rem 1.5rem;background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
 .logo{display:flex;align-items:center;gap:10px;}
@@ -60,10 +60,10 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
 .user-avatar-init{width:22px;height:22px;border-radius:50%;background:var(--sage);color:var(--gold);font-size:0.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;}
 .signout-btn{padding:0.35rem 0.8rem;border-radius:8px;border:1px solid var(--border-strong);background:transparent;font-size:0.75rem;color:var(--red);cursor:pointer;font-family:'DM Sans',sans-serif;}
 .signout-btn:hover{background:var(--red-pale);}
- 
+
 /* ── MAIN GRID ── */
 .app-wrap{display:grid;grid-template-columns:260px 340px 1fr;height:calc(100vh - 57px);overflow:hidden;}
- 
+
 /* ── CHAT SIDEBAR ── */
 .chat-sidebar{background:var(--white);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;}
 .sidebar-header{padding:1rem 1.1rem 0.7rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
@@ -85,7 +85,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
 .chat-action-btn.save:hover{color:var(--sage);background:var(--sage-pale);}
 .sidebar-empty{padding:1.5rem 1rem;text-align:center;font-size:0.78rem;color:var(--ink-muted);line-height:1.6;}
 .guest-notice{margin:0.5rem 0.6rem;padding:0.6rem 0.75rem;background:var(--gold-pale);border:1px solid var(--gold-light);border-radius:8px;font-size:0.72rem;color:#854F0B;line-height:1.5;}
- 
+
 /* ── LOG PANEL ── */
 .left-panel{background:var(--white);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;}
 .panel-header{padding:1.2rem 1.3rem 0.8rem;border-bottom:1px solid var(--border);}
@@ -124,7 +124,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
 .food-item-del{opacity:0;border:none;background:none;cursor:pointer;color:var(--red);font-size:0.9rem;padding:0 0 0 0.3rem;transition:opacity 0.15s;}
 .food-item:hover .food-item-del{opacity:1;}
 .empty-meal{padding:0.4rem 0.65rem;font-size:0.72rem;color:var(--ink-muted);font-style:italic;}
- 
+
 /* ── CHAT PANEL ── */
 .right-panel{display:flex;flex-direction:column;overflow:hidden;background:var(--cream);}
 .chat-header{padding:1rem 1.5rem;background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
@@ -175,7 +175,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
 .typing-dot{width:5px;height:5px;background:var(--ink-muted);border-radius:50%;animation:typingBounce 1.2s ease-in-out infinite;}
 .typing-dot:nth-child(2){animation-delay:0.2s;} .typing-dot:nth-child(3){animation-delay:0.4s;}
 @keyframes typingBounce{0%,60%,100%{transform:translateY(0);opacity:0.4;}30%{transform:translateY(-5px);opacity:1;}}
- 
+
 /* ── RENAME MODAL ── */
 #rename-modal{position:fixed;inset:0;background:rgba(0,0,0,0.35);display:none;align-items:center;justify-content:center;z-index:800;}
 #rename-modal.show{display:flex;}
@@ -188,7 +188,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
 .rename-btn.cancel{background:var(--cream);border:1px solid var(--border-strong);color:var(--ink-light);}
 .rename-btn.save{background:var(--sage);color:var(--white);}
 .rename-btn.save:hover{background:var(--sage-light);}
- 
+
 /* ── GOALS / INSIGHTS ── */
 .goals-panel,.insights-panel{display:none;flex-direction:column;padding:1.8rem;overflow-y:auto;gap:1.3rem;}
 .goals-panel.active,.insights-panel.active{display:flex;}
@@ -217,7 +217,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
 </style>
 </head>
 <body>
- 
+
 <!-- AUTH SCREEN -->
 <div id="auth-screen">
   <div class="auth-card">
@@ -226,10 +226,10 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
     </div>
     <div class="auth-brand">NutriSage</div>
     <div class="auth-tagline">AI Nutrition Intelligence — personalised for you</div>
- 
+
     <!-- Google Sign-In button rendered here -->
     <div id="g_id_onload"
-      data-client_id="YOUR_GOOGLE_CLIENT_ID_HERE"
+      data-client_id="362085679733-pb0oves8bop838pctv8af8nhls474k1g.apps.googleusercontent.com"
       data-callback="handleGoogleSignIn"
       data-auto_prompt="false">
     </div>
@@ -242,18 +242,18 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
       data-logo_alignment="left"
       data-width="340">
     </div>
- 
+
     <div class="auth-divider"><span>or</span></div>
     <button class="guest-btn" onclick="continueAsGuest()">Continue as Guest</button>
     <p class="auth-note">Signed-in users get their food log and chats saved across devices via JSONBin. Guests are stored locally in this browser only.</p>
   </div>
 </div>
- 
- 
- 
+
+
+
 <!-- TOAST -->
 <div id="toast"></div>
- 
+
 <!-- RENAME MODAL -->
 <div id="rename-modal">
   <div class="rename-card">
@@ -265,7 +265,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
     </div>
   </div>
 </div>
- 
+
 <!-- NAV -->
 <nav>
   <div class="logo">
@@ -282,12 +282,12 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
       <div class="user-avatar-init" id="user-init">?</div>
       <span id="user-name-label">Guest</span>
     </div>
-    <button class="signout-btn" onclick="signOut()">Sign out</button>
+    <button class="dark-toggle" id="dark-toggle" onclick="toggleDark()" title="Toggle dark mode">🌙</button><button class="signout-btn" onclick="signOut()">Sign out</button>
   </div>
 </nav>
- 
+
 <div class="app-wrap">
- 
+
   <!-- CHAT SIDEBAR -->
   <div class="chat-sidebar">
     <div class="sidebar-header">
@@ -301,7 +301,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
       <div class="sidebar-empty">No saved chats yet.<br>Start a conversation and save it!</div>
     </div>
   </div>
- 
+
   <!-- LOG PANEL -->
   <div class="left-panel">
     <div class="panel-header">
@@ -333,10 +333,10 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
     </div>
     <div class="food-log" id="food-log"></div>
   </div>
- 
+
   <!-- RIGHT: CHAT or GOALS or INSIGHTS -->
   <div style="display:flex;flex-direction:column;overflow:hidden;">
- 
+
     <!-- TRACKER VIEW -->
     <div class="right-panel" id="tracker-view">
       <div class="chat-header">
@@ -367,7 +367,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
         </div>
       </div>
     </div>
- 
+
     <!-- GOALS VIEW -->
     <div class="goals-panel" id="goals-view">
       <div class="goals-title">Your Nutrition Goals</div>
@@ -407,7 +407,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
       <button class="goal-save-btn" onclick="calculateGoals()">Calculate &amp; Save Goals</button>
       <div class="insight-card"><h3>How TDEE is Calculated</h3><p>NutriSage uses the <strong>Mifflin-St Jeor equation</strong> — the gold-standard formula used by clinical dietitians. Your BMR is multiplied by your activity factor to get TDEE, then your goal offset is applied.</p></div>
     </div>
- 
+
     <!-- INSIGHTS VIEW -->
     <div class="insights-panel" id="insights-view">
       <div class="goals-title">Weekly Insights</div>
@@ -419,10 +419,10 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
       <div class="insight-card"><h3>💡 Today's Insight</h3><p id="daily-tip">Log your first meal to get a personalised tip from Sage.</p></div>
       <div class="insight-card"><h3>📊 Macro Split</h3><p id="macro-split-text" style="color:var(--ink-muted);font-size:0.8rem;">No foods logged yet.</p></div>
     </div>
- 
+
   </div>
 </div>
- 
+
 <script>
 // ══════════════════════════════════════════════
 // CONFIG
@@ -431,7 +431,7 @@ const JSONBIN_KEY  = '$2a$10$i7DPokBsiBm67vNMZ76N/eV6/tAWr8L3WC9X8eRK7FB2O5GGXRI
 const JSONBIN_BIN  = '6a009e5aadc21f119a7d73b5';
 const JSONBIN_URL  = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN}`;
 const WORKER_URL   = 'https://nutrisage-api.pokalkhan123.workers.dev';
- 
+
 // ══════════════════════════════════════════════
 // STATE
 // ══════════════════════════════════════════════
@@ -445,7 +445,7 @@ const state = {
   conversationHistory: [],
   renameTargetId: null
 };
- 
+
 // ══════════════════════════════════════════════
 // TOAST
 // ══════════════════════════════════════════════
@@ -456,7 +456,7 @@ function toast(msg, isError=false) {
   clearTimeout(el._t);
   el._t = setTimeout(() => el.className = '', 2500);
 }
- 
+
 // ══════════════════════════════════════════════
 // AUTH
 // ══════════════════════════════════════════════
@@ -466,23 +466,23 @@ function handleGoogleSignIn(response) {
   localStorage.setItem('ns_user', JSON.stringify(state.user));
   finishAuth();
 }
- 
+
 function continueAsGuest() {
   state.user = { name: 'Guest', email: 'guest', picture: null, isGuest: true };
   finishAuth();
 }
- 
+
 function finishAuth() {
   document.getElementById('auth-screen').style.display = 'none';
   updateUserPill();
   loadData();
 }
- 
+
 function signOut() {
   localStorage.removeItem('ns_user');
   location.reload();
 }
- 
+
 function updateUserPill() {
   const u = state.user;
   document.getElementById('user-name-label').textContent = u.isGuest ? 'Guest' : u.name.split(' ')[0];
@@ -496,12 +496,12 @@ function updateUserPill() {
   }
   if (u.isGuest) document.getElementById('guest-notice').style.display = 'block';
 }
- 
+
 function parseJwt(token) {
   const base64 = token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');
   return JSON.parse(decodeURIComponent(atob(base64).split('').map(c=>'%'+('00'+c.charCodeAt(0).toString(16)).slice(-2)).join('')));
 }
- 
+
 // ══════════════════════════════════════════════
 // DATA LOAD / SAVE (JSONBin for signed-in, localStorage for guests)
 // ══════════════════════════════════════════════
@@ -525,7 +525,7 @@ async function loadData() {
   updateUI();
   updateDateLabel();
 }
- 
+
 let _saveTimer=null;
 async function persistData() {
   clearTimeout(_saveTimer);
@@ -551,7 +551,7 @@ async function persistData() {
     }
   }, 900);
 }
- 
+
 // ══════════════════════════════════════════════
 // VIEW SWITCHING
 // ══════════════════════════════════════════════
@@ -562,7 +562,7 @@ function switchView(view) {
   document.getElementById('insights-view').classList.toggle('active', view==='insights');
   if (view==='insights') renderInsights();
 }
- 
+
 // ══════════════════════════════════════════════
 // DATE
 // ══════════════════════════════════════════════
@@ -572,7 +572,7 @@ function updateDateLabel() {
   document.getElementById('date-label').textContent = lbl+', '+d.toLocaleDateString('en-GB',{month:'short',day:'numeric'});
 }
 function changeDay(n){state.dayOffset+=n;updateDateLabel();}
- 
+
 // ══════════════════════════════════════════════
 // TOTALS & UI
 // ══════════════════════════════════════════════
@@ -615,7 +615,7 @@ function renderLog(){
   }
 }
 function removeFood(meal,idx){state.meals[meal].splice(idx,1);updateUI();persistData();}
- 
+
 // ══════════════════════════════════════════════
 // GOALS
 // ══════════════════════════════════════════════
@@ -645,7 +645,7 @@ function calculateGoals(){
   document.getElementById('ring-goal').textContent=target;
   updateUI(); persistData(); toast('Goals saved!');
 }
- 
+
 // ══════════════════════════════════════════════
 // INSIGHTS
 // ══════════════════════════════════════════════
@@ -671,7 +671,7 @@ function renderInsights(){
   const tips=['Spread protein across 3–4 meals for optimal muscle protein synthesis.','Add leafy greens to boost micronutrients without many extra calories.','Aim for 35ml of water per kg of bodyweight daily for optimal hydration.','Eating slowly can reduce intake by up to 20% by allowing leptin signals to reach your brain.','Oats, sweet potato, and brown rice provide sustained energy and are rich in fiber.'];
   if(total>0) document.getElementById('daily-tip').textContent=tips[total%tips.length];
 }
- 
+
 // ══════════════════════════════════════════════
 // CHAT MANAGEMENT
 // ══════════════════════════════════════════════
@@ -685,7 +685,7 @@ function newChat(){
   addMessage('ai',`👋 Hello! I'm <strong>Sage</strong>, your personal nutrition intelligence assistant.<br><br>I can help you with:<br>• 🍽️ Calorie &amp; macro lookup for any food<br>• 🧮 Portion estimation from descriptions<br>• 🔬 Micronutrient analysis<br>• 🧠 Nutrition science questions<br>• 🎯 Meal planning &amp; goal optimisation<br>• 🍳 Recipe breakdowns &amp; supplement guidance<br><br>Just tell me what you ate, or ask me anything!`,'');
   renderChatList();
 }
- 
+
 function saveCurrentChat(){
   if(!state.conversationHistory.length){ toast('Nothing to save yet — start a conversation first!', true); return; }
   const existing = state.chats.find(c=>c.id===state.currentChatId);
@@ -701,14 +701,14 @@ function saveCurrentChat(){
   document.getElementById('current-chat-title').textContent=chatTitle;
   renderChatList(); persistData(); toast('Chat saved!');
 }
- 
+
 function generateTitle(){
   const first=state.conversationHistory.find(m=>m.role==='user');
   if(!first) return 'Saved Chat';
   const t=first.content.replace(/<[^>]+>/g,'').slice(0,35);
   return t.length<first.content.length ? t+'…' : t;
 }
- 
+
 function loadChat(id){
   const chat=state.chats.find(c=>c.id===id);
   if(!chat) return;
@@ -722,7 +722,7 @@ function loadChat(id){
   });
   renderChatList();
 }
- 
+
 function deleteChat(id, e){
   e.stopPropagation();
   if(!confirm('Delete this chat?')) return;
@@ -730,12 +730,12 @@ function deleteChat(id, e){
   if(state.currentChatId===id) newChat();
   renderChatList(); persistData(); toast('Chat deleted');
 }
- 
+
 function clearChat(){
   if(!confirm('Clear this conversation? It won\'t be deleted from saved chats.')) return;
   newChat();
 }
- 
+
 let _renameId=null;
 function openRename(id,e){
   e.stopPropagation();
@@ -757,7 +757,7 @@ function confirmRename(){
   closeRename(); renderChatList(); persistData(); toast('Renamed!');
 }
 document.getElementById('rename-modal').addEventListener('click',function(e){if(e.target===this)closeRename();});
- 
+
 function renderChatList(){
   const list=document.getElementById('chat-list');
   if(!state.chats.length){
@@ -781,14 +781,14 @@ function renderChatList(){
     list.appendChild(el);
   });
 }
- 
+
 // ══════════════════════════════════════════════
 // CHAT / AI
 // ══════════════════════════════════════════════
 function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}}
 function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,110)+'px';}
 function sendQuick(el){document.getElementById('chat-input').value=el.textContent;sendMessage();}
- 
+
 function addMessage(role,html,raw){
   const msgs=document.getElementById('chat-messages');
   const div=document.createElement('div');
@@ -800,7 +800,7 @@ function addMessage(role,html,raw){
     state.conversationHistory.push({role:role==='ai'?'assistant':'user',content:raw});
   }
 }
- 
+
 function showTyping(){
   const msgs=document.getElementById('chat-messages');
   const div=document.createElement('div');
@@ -809,7 +809,7 @@ function showTyping(){
   msgs.appendChild(div); msgs.scrollTop=msgs.scrollHeight;
   return div;
 }
- 
+
 async function sendMessage(){
   const input=document.getElementById('chat-input');
   const text=input.value.trim();
@@ -819,33 +819,33 @@ async function sendMessage(){
   document.getElementById('quick-suggestions').style.display='none';
   addMessage('user',escapeHtml(text),text);
   const typing=showTyping();
- 
+
   try {
     const sysPrompt=`You are Sage, an elite AI nutrition and dietetics expert in the NutriSage app. Deep knowledge of: macronutrients, micronutrients (vitamins A–K, minerals, trace elements), glycaemic index, insulin response, bioavailability, phytonutrients, antioxidants. Full food database knowledge — calories and macros for thousands of foods raw/cooked/processed/restaurant/international. Metabolism: BMR, TDEE, Mifflin-St Jeor, Harris-Benedict, TEF, NEAT, hormones (leptin, ghrelin, insulin, glucagon, thyroid, cortisol). Body composition: deficit/surplus, muscle protein synthesis, leucine threshold, refeeding, body recomposition. Dietary approaches: omnivore, vegetarian, vegan, Mediterranean, DASH, keto, carnivore, paleo, IIFYM, intuitive eating, IF (16:8, 5:2, OMAD), caloric cycling. Clinical: diabetes, CVD, renal diet, coeliac, IBS, food allergies, sports nutrition, supplements (creatine, protein, caffeine, omega-3, vitamin D, magnesium, zinc). Food science: NOVA classification, food labelling, cooking and nutrient retention.
- 
+
 WHEN USER LOGS FOOD: respond helpfully AND append at the very end:
 <food_data>{"name":"Food Name","cal":0,"protein":0,"carbs":0,"fat":0,"fiber":0,"meal":"Breakfast"}</food_data>
 Meal = Breakfast|Lunch|Dinner|Snacks (infer from time or context). Time now: ${new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}.
 Be specific with numbers. Warm and encouraging. Never preachy.
 User goals: ${state.goals.calories}kcal | ${state.goals.protein}g protein | ${state.goals.carbs}g carbs | ${state.goals.fat}g fat.
 Today's intake: ${JSON.stringify(getTotals())}.`;
- 
+
     const messages = [
       {role:'system', content: sysPrompt},
       ...state.conversationHistory.slice(-14).map(m=>({role:m.role,content:m.content})),
       {role:'user', content:text}
     ];
- 
+
     const res=await fetch(WORKER_URL,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({messages})
     });
- 
+
     const data=await res.json();
     typing.remove();
     if(data.error) throw new Error(typeof data.error==='object'?data.error.message:data.error);
- 
+
     const raw=data.choices?.[0]?.message?.content||'';
     if(!raw) throw new Error('Empty response from AI');
     const foodMatch=raw.match(/<food_data>([\s\S]*?)<\/food_data>/);
@@ -853,14 +853,14 @@ Today's intake: ${JSON.stringify(getTotals())}.`;
     let html=formatAIText(display);
     if(foodMatch){try{html+=renderFoodCard(JSON.parse(foodMatch[1]));}catch(e){}}
     addMessage('ai',html,raw);
- 
+
   } catch(err) {
     typing.remove();
     addMessage('ai',`<em style="color:var(--red)">⚠️ Something went wrong: ${err.message}. Please try again!</em>`,'');
   }
   document.getElementById('send-btn').disabled=false;
 }
- 
+
 function renderFoodCard(food){
   const id='f'+Date.now();
   window._pf=window._pf||{};
@@ -878,7 +878,7 @@ function renderFoodCard(food){
     <button class="frc-add-btn" onclick="addFoodCard('${id}')">➕ Add to Log</button>
   </div>`;
 }
- 
+
 function addFoodCard(id){
   const food=window._pf[id]; if(!food) return;
   const meal=document.getElementById('ms_'+id).value;
@@ -887,7 +887,7 @@ function addFoodCard(id){
   const btn=document.querySelector(`button[onclick="addFoodCard('${id}')"]`);
   if(btn){btn.textContent='✓ Added!';btn.style.background='var(--gold)';btn.disabled=true;}
 }
- 
+
 function formatAIText(t){
   return t
     .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
@@ -897,11 +897,30 @@ function formatAIText(t){
     .replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
 }
 function escapeHtml(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
- 
+
+
+// ══════════════════════════════════════════════
+// DARK MODE
+// ══════════════════════════════════════════════
+function toggleDark(){
+  const isDark = document.body.classList.toggle("dark");
+  localStorage.setItem("ns_dark", isDark ? "1" : "0");
+  document.getElementById("dark-toggle").textContent = isDark ? "☀️" : "🌙";
+}
+function applyDark(){
+  const stored = localStorage.getItem("ns_dark");
+  if(stored==="1"||(!stored&&window.matchMedia("(prefers-color-scheme:dark)").matches)){
+    document.body.classList.add("dark");
+    const btn=document.getElementById("dark-toggle");
+    if(btn) btn.textContent="☀️";
+  }
+}
+
 // ══════════════════════════════════════════════
 // BOOT
 // ══════════════════════════════════════════════
 (function init(){
+  applyDark();
   const stored=localStorage.getItem('ns_user');
   if(stored){
     try{
