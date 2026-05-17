@@ -592,6 +592,18 @@ function updateUserPill() {
 }
  
 // ── DATA ─────────────────────────────────────────
+function applyRecord(d) {
+  // Safely merge a data record into state — never overwrites with empty data
+  if (d.meals && Object.keys(d.meals).some(function(k) { return d.meals[k].length > 0; })) state.meals = d.meals;
+  if (d.chats && d.chats.length > 0) state.chats = d.chats;
+  if (d.goals && d.goals.calories) state.goals = d.goals;
+  if (d.water !== undefined) state.water = d.water;
+  if (d.templates && d.templates.length > 0) state.templates = d.templates;
+  if (d.photos && d.photos.length > 0) state.photos = d.photos;
+  if (d.streak !== undefined) state.streak = d.streak;
+  if (d.lastLogDate) state.lastLogDate = d.lastLogDate;
+}
+ 
 function loadData() {
   if (state.user.isGuest) {
     state.meals = {Breakfast:[], Lunch:[], Dinner:[], Snacks:[]};
@@ -600,22 +612,14 @@ function loadData() {
     afterLoad();
     return;
   }
+  // STEP 1: Always load from localStorage first — this is instant and reliable
   var localRaw = localStorage.getItem(userLocalKey());
   if (localRaw) {
-    try {
-      var d = JSON.parse(localRaw);
-      if (d.meals) state.meals = d.meals;
-      if (d.chats) state.chats = d.chats;
-      if (d.goals) state.goals = d.goals;
-      if (d.water !== undefined) state.water = d.water;
-      if (d.templates) state.templates = d.templates;
-      if (d.photos) state.photos = d.photos;
-      if (d.streak !== undefined) state.streak = d.streak;
-      if (d.lastLogDate) state.lastLogDate = d.lastLogDate;
-    } catch(e) {}
+    try { applyRecord(JSON.parse(localRaw)); } catch(e) {}
   }
   afterLoad();
-  // Background JSONBin sync
+ 
+  // STEP 2: Background JSONBin sync — only merges if remote has MORE data
   fetch(JSONBIN_URL + '/latest', {headers: {'X-Access-Key': JSONBIN_KEY}})
     .then(function(r) { return r.json(); })
     .then(function(data) {
@@ -623,17 +627,14 @@ function loadData() {
       var uk = 'u_' + state.user.email.replace(/[^a-z0-9]/gi, '_');
       var ud = data.record[uk];
       if (!ud) return;
+      // Only use remote data if it has strictly MORE chats or food items than local
       var remoteChats = (ud.chats || []).length;
+      var remoteFoods = ud.meals ? Object.keys(ud.meals).reduce(function(s,k){return s+(ud.meals[k]||[]).length;},0) : 0;
       var localChats = state.chats.length;
-      if (remoteChats >= localChats) {
-        if (ud.meals) state.meals = ud.meals;
-        if (ud.chats) state.chats = ud.chats;
-        if (ud.goals) state.goals = ud.goals;
-        if (ud.water !== undefined) state.water = ud.water;
-        if (ud.templates) state.templates = ud.templates;
-        if (ud.photos) state.photos = ud.photos;
-        if (ud.streak !== undefined) state.streak = ud.streak;
-        if (ud.lastLogDate) state.lastLogDate = ud.lastLogDate;
+      var localFoods = Object.keys(state.meals).reduce(function(s,k){return s+state.meals[k].length;},0);
+      if (remoteChats > localChats || remoteFoods > localFoods) {
+        applyRecord(ud);
+        // Save merged result back to localStorage so next load is instant
         localStorage.setItem(userLocalKey(), JSON.stringify(getPayload()));
         updateStreak(); renderChatList(); renderTemplateBar(); renderWater(); updateUI();
       }
