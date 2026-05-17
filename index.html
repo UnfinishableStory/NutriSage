@@ -830,11 +830,29 @@ function renderLog() {
 // ── TEMPLATES ────────────────────────────────────
 function renderTemplateBar() {
   var bar = qs('template-bar'); bar.innerHTML = '';
+  if (!state.templates.length) return;
   state.templates.forEach(function(t, i) {
+    var wrap = document.createElement('div'); wrap.style.cssText = 'display:flex;align-items:center;gap:2px;flex-shrink:0;';
     var chip = document.createElement('div'); chip.className = 'template-chip';
     chip.textContent = '⭐ ' + t.name;
+    chip.title = 'Tap to log this template';
     chip.addEventListener('click', function() { logTemplate(i); });
-    bar.appendChild(chip);
+    var del = document.createElement('button');
+    del.textContent = '✕';
+    del.title = 'Delete template';
+    del.style.cssText = 'width:18px;height:18px;border-radius:50%;border:none;background:var(--red);color:white;font-size:0.6rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:0;';
+    del.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (confirm('Delete template "' + t.name + '"?')) {
+        state.templates.splice(i, 1);
+        renderTemplateBar();
+        persistData();
+        toast('Template deleted');
+      }
+    });
+    wrap.appendChild(chip);
+    wrap.appendChild(del);
+    bar.appendChild(wrap);
   });
 }
 
