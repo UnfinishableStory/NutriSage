@@ -7,28 +7,26 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
-:root {
-  --sage:#2D5A3D; --sage-light:#3D7A55; --sage-pale:#E8F2EC;
-  --gold:#C9A84C; --gold-light:#E8C97A; --gold-pale:#FBF6EC;
-  --cream:#FAF8F4; --ink:#1A1F1C; --ink-light:#4A5248; --ink-muted:#8A9288;
-  --white:#FFFFFF; --red:#C0745A; --red-pale:#FAEAE4;
-  --border:rgba(45,90,61,0.12); --border-strong:rgba(45,90,61,0.22);
-  --radius:16px; --radius-sm:10px; --radius-lg:24px;
-  --shadow:0 4px 24px rgba(45,90,61,0.10); --shadow-lg:0 12px 48px rgba(45,90,61,0.18);
+:root{
+  --sage:#2D5A3D;--sage-light:#3D7A55;--sage-pale:#E8F2EC;
+  --gold:#C9A84C;--gold-light:#E8C97A;--gold-pale:#FBF6EC;
+  --cream:#FAF8F4;--ink:#1A1F1C;--ink-light:#4A5248;--ink-muted:#8A9288;
+  --white:#FFFFFF;--red:#C0745A;--red-pale:#FAEAE4;
+  --border:rgba(45,90,61,0.12);--border-strong:rgba(45,90,61,0.22);
+  --radius:16px;--radius-sm:10px;--radius-lg:24px;
+  --shadow:0 4px 24px rgba(45,90,61,0.10);--shadow-lg:0 12px 48px rgba(45,90,61,0.18);
+}
+body.dark{
+  --cream:#0F1A13;--ink:#E8F2EC;--ink-light:#A8C4B0;--ink-muted:#6A8A72;
+  --white:#1A2E20;--border:rgba(120,200,140,0.12);--border-strong:rgba(120,200,140,0.22);
+  --red-pale:#2A1A15;--gold-pale:#2A2210;--sage-pale:#0F2018;
+  --shadow:0 4px 24px rgba(0,0,0,0.4);--shadow-lg:0 12px 48px rgba(0,0,0,0.5);
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-
-body.dark {
-  --cream:#0F1A13; --ink:#E8F2EC; --ink-light:#A8C4B0; --ink-muted:#6A8A72;
-  --white:#1A2E20; --border:rgba(120,200,140,0.12); --border-strong:rgba(120,200,140,0.22);
-  --red-pale:#2A1A15; --gold-pale:#2A2210; --sage-pale:#0F2018;
-  --shadow:0 4px 24px rgba(0,0,0,0.4); --shadow-lg:0 12px 48px rgba(0,0,0,0.5);
-}
 body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;overflow:hidden;transition:background 0.3s,color 0.3s;}
 .dark-toggle{width:36px;height:36px;border-radius:9px;border:1px solid var(--border-strong);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:all 0.15s;}
 .dark-toggle:hover{background:var(--sage-pale);border-color:var(--sage);}
-
-/* ── AUTH SCREEN ── */
+/* AUTH */
 #auth-screen{position:fixed;inset:0;background:linear-gradient(135deg,#1a3528 0%,#2D5A3D 60%,#3d7a55 100%);display:flex;align-items:center;justify-content:center;z-index:9999;}
 .auth-card{background:var(--white);border-radius:var(--radius-lg);padding:2.8rem 2.5rem;width:100%;max-width:400px;text-align:center;box-shadow:var(--shadow-lg);}
 .auth-logo{width:60px;height:60px;background:var(--sage);border-radius:18px;display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;}
@@ -38,21 +36,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);m
 .auth-divider{display:flex;align-items:center;gap:0.75rem;margin:1.2rem 0;}
 .auth-divider span{font-size:0.75rem;color:var(--ink-muted);white-space:nowrap;}
 .auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border-strong);}
-.google-btn{width:100%;padding:0.8rem;border:1.5px solid var(--border-strong);border-radius:12px;background:var(--white);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all 0.15s;margin-bottom:0.75rem;}
-.google-btn:hover{background:var(--cream);border-color:var(--sage);}
-.google-btn img{width:18px;height:18px;}
 .guest-btn{width:100%;padding:0.8rem;border:none;border-radius:12px;background:var(--sage);color:var(--white);font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:600;cursor:pointer;transition:background 0.15s;}
 .guest-btn:hover{background:var(--sage-light);}
 .auth-note{font-size:0.71rem;color:var(--ink-muted);margin-top:1.2rem;line-height:1.5;}
-
-
-
-/* ── TOAST ── */
-#toast{position:fixed;bottom:1.5rem;right:1.5rem;padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:500;background:var(--sage);color:white;opacity:0;transition:opacity 0.3s;z-index:500;pointer-events:none;}
-#toast.show{opacity:1;}
-#toast.error{background:var(--red);}
-
-/* ── LAYOUT ── */
+/* TOAST */
+#toast{position:fixed;bottom:1.5rem;right:1.5rem;padding:0.6rem 1.2rem;border-radius:10px;font-size:0.8rem;font-weight:500;background:var(--sage);color:white;opacity:0;transition:opacity 0.3s;z-index:9000;pointer-events:none;}
+#toast.show{opacity:1;}#toast.error{background:var(--red);}
+/* CONFETTI */
+#confetti-canvas{position:fixed;inset:0;pointer-events:none;z-index:8999;}
+/* NAV */
 nav{display:flex;align-items:center;justify-content:space-between;padding:0.85rem 1.5rem;background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
 .logo{display:flex;align-items:center;gap:10px;}
 .logo-icon{width:34px;height:34px;background:var(--sage);border-radius:9px;display:flex;align-items:center;justify-content:center;}
@@ -69,11 +61,10 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
 .user-avatar-init{width:22px;height:22px;border-radius:50%;background:var(--sage);color:var(--gold);font-size:0.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;}
 .signout-btn{padding:0.35rem 0.8rem;border-radius:8px;border:1px solid var(--border-strong);background:transparent;font-size:0.75rem;color:var(--red);cursor:pointer;font-family:'DM Sans',sans-serif;}
 .signout-btn:hover{background:var(--red-pale);}
-
-/* ── MAIN GRID ── */
+.streak-badge{display:flex;align-items:center;gap:4px;padding:0.3rem 0.7rem;border-radius:20px;background:var(--gold-pale);border:1px solid var(--gold-light);font-size:0.78rem;font-weight:600;color:#854F0B;}
+/* MAIN GRID */
 .app-wrap{display:grid;grid-template-columns:260px 340px 1fr;height:calc(100vh - 57px);overflow:hidden;}
-
-/* ── CHAT SIDEBAR ── */
+/* CHAT SIDEBAR */
 .chat-sidebar{background:var(--white);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;}
 .sidebar-header{padding:1rem 1.1rem 0.7rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
 .sidebar-title{font-size:0.82rem;font-weight:600;color:var(--ink-muted);text-transform:uppercase;letter-spacing:0.8px;}
@@ -82,7 +73,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
 .chat-list{flex:1;overflow-y:auto;padding:0.5rem 0.6rem;}
 .chat-list::-webkit-scrollbar{width:3px;}
 .chat-list::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:2px;}
-.chat-item{padding:0.65rem 0.75rem;border-radius:10px;cursor:pointer;transition:background 0.15s;margin-bottom:2px;position:relative;group:true;}
+.chat-item{padding:0.65rem 0.75rem;border-radius:10px;cursor:pointer;transition:background 0.15s;margin-bottom:2px;position:relative;}
 .chat-item:hover{background:var(--sage-pale);}
 .chat-item.active{background:var(--sage-pale);border:1px solid var(--border-strong);}
 .chat-item-title{font-size:0.82rem;font-weight:500;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px;}
@@ -91,20 +82,21 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
 .chat-item:hover .chat-item-actions{display:flex;}
 .chat-action-btn{width:24px;height:24px;border:none;background:var(--white);border-radius:6px;cursor:pointer;font-size:0.75rem;display:flex;align-items:center;justify-content:center;color:var(--ink-muted);transition:all 0.1s;}
 .chat-action-btn:hover{color:var(--red);background:var(--red-pale);}
-.chat-action-btn.save:hover{color:var(--sage);background:var(--sage-pale);}
 .sidebar-empty{padding:1.5rem 1rem;text-align:center;font-size:0.78rem;color:var(--ink-muted);line-height:1.6;}
 .guest-notice{margin:0.5rem 0.6rem;padding:0.6rem 0.75rem;background:var(--gold-pale);border:1px solid var(--gold-light);border-radius:8px;font-size:0.72rem;color:#854F0B;line-height:1.5;}
-
-/* ── LOG PANEL ── */
+/* LOG PANEL */
 .left-panel{background:var(--white);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;}
-.panel-header{padding:1.2rem 1.3rem 0.8rem;border-bottom:1px solid var(--border);}
-.panel-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;color:var(--ink);margin-bottom:0.2rem;}
+.panel-header{padding:1rem 1.3rem 0.7rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.panel-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;color:var(--ink);}
 .panel-sub{font-size:0.72rem;color:var(--ink-muted);}
-.date-nav{display:flex;align-items:center;justify-content:space-between;padding:0.7rem 1.3rem;border-bottom:1px solid var(--border);}
+.panel-actions{display:flex;gap:5px;}
+.panel-icon-btn{width:28px;height:28px;border-radius:7px;border:1px solid var(--border-strong);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.85rem;transition:all 0.15s;}
+.panel-icon-btn:hover{background:var(--sage-pale);border-color:var(--sage);}
+.date-nav{display:flex;align-items:center;justify-content:space-between;padding:0.65rem 1.3rem;border-bottom:1px solid var(--border);}
 .date-nav button{width:28px;height:28px;border-radius:7px;border:1px solid var(--border-strong);background:transparent;cursor:pointer;color:var(--ink-light);font-size:0.9rem;display:flex;align-items:center;justify-content:center;transition:all 0.15s;}
 .date-nav button:hover{background:var(--sage-pale);border-color:var(--sage);color:var(--sage);}
 .date-label{font-size:0.83rem;font-weight:600;color:var(--ink);}
-.calorie-ring-section{padding:1rem 1.3rem;border-bottom:1px solid var(--border);display:flex;gap:1rem;align-items:center;}
+.calorie-ring-section{padding:0.9rem 1.3rem;border-bottom:1px solid var(--border);display:flex;gap:1rem;align-items:center;}
 .ring-wrap{position:relative;width:82px;height:82px;flex-shrink:0;}
 .ring-wrap svg{transform:rotate(-90deg);}
 .ring-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;line-height:1;}
@@ -113,11 +105,24 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
 .macro-bars{flex:1;display:flex;flex-direction:column;gap:5px;}
 .macro-row{display:flex;flex-direction:column;gap:2px;}
 .macro-info{display:flex;justify-content:space-between;font-size:0.7rem;font-weight:500;}
-.macro-name{color:var(--ink-light);}
-.macro-val{color:var(--ink);}
+.macro-name{color:var(--ink-light);}.macro-val{color:var(--ink);}
 .macro-bar-bg{height:4px;background:var(--sage-pale);border-radius:3px;overflow:hidden;}
 .macro-bar-fill{height:100%;border-radius:3px;transition:width 0.4s ease;}
-.bar-protein{background:var(--sage);} .bar-carbs{background:var(--gold);} .bar-fat{background:var(--red);}
+.bar-protein{background:var(--sage);}.bar-carbs{background:var(--gold);}.bar-fat{background:var(--red);}
+/* WATER */
+.water-section{padding:0.65rem 1.3rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.water-label{font-size:0.72rem;font-weight:600;color:var(--ink-muted);}
+.water-cups{display:flex;gap:3px;align-items:center;}
+.water-cup{width:18px;height:18px;border-radius:4px;border:1.5px solid var(--border-strong);background:transparent;cursor:pointer;transition:all 0.15s;}
+.water-cup.filled{background:#4A9ECC;border-color:#4A9ECC;}
+.water-cup:hover{border-color:#4A9ECC;}
+.water-count{font-size:0.72rem;color:var(--ink-muted);margin-left:4px;}
+/* TEMPLATE BAR */
+.template-bar{padding:0.4rem 1.3rem;border-bottom:1px solid var(--border);display:flex;gap:0.4rem;overflow-x:auto;scrollbar-width:none;min-height:36px;align-items:center;}
+.template-bar::-webkit-scrollbar{display:none;}
+.template-chip{padding:0.25rem 0.65rem;border-radius:20px;border:1px solid var(--border-strong);font-size:0.7rem;font-weight:500;color:var(--ink-light);cursor:pointer;background:var(--white);white-space:nowrap;transition:all 0.15s;flex-shrink:0;}
+.template-chip:hover{background:var(--sage-pale);border-color:var(--sage);color:var(--sage);}
+/* FOOD LOG */
 .food-log{flex:1;overflow-y:auto;padding:0.6rem 1.3rem;}
 .food-log::-webkit-scrollbar{width:3px;}
 .food-log::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:2px;}
@@ -125,7 +130,8 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
 .meal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;}
 .meal-name{font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--ink-muted);}
 .meal-total{font-size:0.72rem;font-weight:600;color:var(--sage);}
-.food-item{display:flex;align-items:center;justify-content:space-between;padding:0.5rem 0.65rem;background:var(--cream);border-radius:8px;margin-bottom:0.25rem;border:1px solid transparent;transition:all 0.15s;}
+.food-item{display:flex;align-items:center;justify-content:space-between;padding:0.5rem 0.65rem;background:var(--cream);border-radius:8px;margin-bottom:0.25rem;border:1px solid transparent;transition:all 0.2s;animation:slideIn 0.25s ease-out;}
+@keyframes slideIn{from{opacity:0;transform:translateX(-10px);}to{opacity:1;transform:translateX(0);}}
 .food-item:hover{border-color:var(--border-strong);background:var(--white);}
 .food-item-name{font-size:0.78rem;font-weight:500;color:var(--ink);margin-bottom:1px;}
 .food-item-detail{font-size:0.67rem;color:var(--ink-muted);}
@@ -133,8 +139,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
 .food-item-del{opacity:0;border:none;background:none;cursor:pointer;color:var(--red);font-size:0.9rem;padding:0 0 0 0.3rem;transition:opacity 0.15s;}
 .food-item:hover .food-item-del{opacity:1;}
 .empty-meal{padding:0.4rem 0.65rem;font-size:0.72rem;color:var(--ink-muted);font-style:italic;}
-
-/* ── CHAT PANEL ── */
+/* CHAT PANEL */
 .right-panel{display:flex;flex-direction:column;overflow:hidden;background:var(--cream);}
 .chat-header{padding:1rem 1.5rem;background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
 .chat-header-left{display:flex;align-items:center;gap:0.75rem;}
@@ -145,7 +150,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
 .status-dot{width:5px;height:5px;background:var(--sage-light);border-radius:50%;animation:pulse 2s ease-in-out infinite;}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.85);}}
 .chat-header-actions{display:flex;gap:0.4rem;}
-.chat-hdr-btn{padding:0.35rem 0.75rem;border-radius:8px;border:1px solid var(--border-strong);background:transparent;font-size:0.75rem;font-weight:500;cursor:pointer;color:var(--ink-light);font-family:'DM Sans',sans-serif;transition:all 0.15s;display:flex;align-items:center;gap:4px;}
+.chat-hdr-btn{padding:0.35rem 0.75rem;border-radius:8px;border:1px solid var(--border-strong);background:transparent;font-size:0.75rem;font-weight:500;cursor:pointer;color:var(--ink-light);font-family:'DM Sans',sans-serif;transition:all 0.15s;}
 .chat-hdr-btn:hover{background:var(--sage-pale);border-color:var(--sage);color:var(--sage);}
 .chat-hdr-btn.danger:hover{background:var(--red-pale);border-color:var(--red);color:var(--red);}
 .chat-messages{flex:1;overflow-y:auto;padding:1.2rem 1.5rem;display:flex;flex-direction:column;gap:1rem;}
@@ -160,12 +165,12 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
 .msg-bubble{padding:0.75rem 1rem;border-radius:14px;font-size:0.855rem;line-height:1.65;max-width:100%;}
 .msg.ai .msg-bubble{background:var(--white);border:1px solid var(--border);color:var(--ink);border-radius:3px 14px 14px 14px;}
 .msg.user .msg-bubble{background:var(--sage);color:var(--white);border-radius:14px 3px 14px 14px;}
-.food-result-card{background:var(--sage-pale);border:1px solid var(--border-strong);border-radius:var(--radius-sm);padding:0.8rem 0.9rem;margin-top:0.5rem;font-size:0.8rem;}
+.food-result-card{background:var(--sage-pale);border:1px solid var(--border-strong);border-radius:var(--radius-sm);padding:0.8rem 0.9rem;margin-top:0.5rem;}
 .frc-name{font-weight:600;font-size:0.88rem;color:var(--sage);margin-bottom:0.45rem;font-family:'Playfair Display',serif;}
 .frc-macros{display:grid;grid-template-columns:repeat(4,1fr);gap:0.4rem;margin-bottom:0.6rem;}
 .frc-macro{text-align:center;background:var(--white);border-radius:7px;padding:0.4rem 0.25rem;}
 .frc-macro-val{font-size:0.95rem;font-weight:700;color:var(--sage);font-family:'Playfair Display',serif;display:block;}
-.frc-macro-lbl{font-size:0.62rem;color:var(--ink-muted);text-transform:uppercase;letter-spacing:0.5px;}
+.frc-macro-lbl{font-size:0.62rem;color:var(--ink-muted);text-transform:uppercase;}
 .frc-add-btn{width:100%;padding:0.5rem;background:var(--sage);color:var(--white);border:none;border-radius:7px;font-size:0.78rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.15s;}
 .frc-add-btn:hover{background:var(--sage-light);}
 .quick-suggestions{padding:0 1.5rem 0.65rem;display:flex;gap:0.4rem;flex-wrap:wrap;}
@@ -180,28 +185,32 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
 .send-btn:hover{background:var(--sage-light);transform:scale(1.03);}
 .send-btn:disabled{background:var(--border-strong);cursor:not-allowed;transform:none;}
 .send-btn svg{width:16px;height:16px;fill:white;}
+.scan-btn{width:42px;height:42px;border-radius:11px;background:var(--gold);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem;transition:all 0.15s;}
+.scan-btn:hover{background:var(--gold-light);transform:scale(1.03);}
 .typing-dots{display:flex;gap:4px;padding:0.75rem 0.9rem;background:var(--white);border:1px solid var(--border);border-radius:3px 14px 14px 14px;}
 .typing-dot{width:5px;height:5px;background:var(--ink-muted);border-radius:50%;animation:typingBounce 1.2s ease-in-out infinite;}
-.typing-dot:nth-child(2){animation-delay:0.2s;} .typing-dot:nth-child(3){animation-delay:0.4s;}
+.typing-dot:nth-child(2){animation-delay:0.2s;}.typing-dot:nth-child(3){animation-delay:0.4s;}
 @keyframes typingBounce{0%,60%,100%{transform:translateY(0);opacity:0.4;}30%{transform:translateY(-5px);opacity:1;}}
-
-/* ── RENAME MODAL ── */
-#rename-modal{position:fixed;inset:0;background:rgba(0,0,0,0.35);display:none;align-items:center;justify-content:center;z-index:800;}
-#rename-modal.show{display:flex;}
-.rename-card{background:var(--white);border-radius:var(--radius);padding:1.8rem;width:100%;max-width:360px;box-shadow:var(--shadow-lg);}
-.rename-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:1rem;color:var(--ink);}
-.rename-input{width:100%;padding:0.65rem 0.9rem;border:1.5px solid var(--border-strong);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:0.9rem;color:var(--ink);outline:none;margin-bottom:1rem;}
-.rename-input:focus{border-color:var(--sage);}
-.rename-actions{display:flex;gap:0.5rem;justify-content:flex-end;}
-.rename-btn{padding:0.55rem 1.2rem;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:600;cursor:pointer;border:none;transition:all 0.15s;}
-.rename-btn.cancel{background:var(--cream);border:1px solid var(--border-strong);color:var(--ink-light);}
-.rename-btn.save{background:var(--sage);color:var(--white);}
-.rename-btn.save:hover{background:var(--sage-light);}
-
-/* ── GOALS / INSIGHTS ── */
+/* MODALS */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);display:none;align-items:center;justify-content:center;z-index:800;}
+.modal-overlay.show{display:flex;}
+.modal-card{background:var(--white);border-radius:var(--radius);padding:1.8rem;width:100%;max-width:380px;box-shadow:var(--shadow-lg);}
+.modal-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:1rem;color:var(--ink);}
+.modal-input{width:100%;padding:0.65rem 0.9rem;border:1.5px solid var(--border-strong);border-radius:9px;font-family:'DM Sans',sans-serif;font-size:0.9rem;color:var(--ink);background:var(--cream);outline:none;margin-bottom:1rem;}
+.modal-input:focus{border-color:var(--sage);}
+.modal-actions{display:flex;gap:0.5rem;justify-content:flex-end;}
+.modal-btn{padding:0.55rem 1.2rem;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:600;cursor:pointer;border:none;transition:all 0.15s;}
+.modal-btn.cancel{background:var(--cream);border:1px solid var(--border-strong);color:var(--ink-light);}
+.modal-btn.confirm{background:var(--sage);color:var(--white);}
+.modal-btn.confirm:hover{background:var(--sage-light);}
+/* SCANNER */
+#scanner-modal .modal-card{max-width:440px;}
+#scanner-video{width:100%;border-radius:10px;background:#000;aspect-ratio:4/3;object-fit:cover;}
+.scanner-status{font-size:0.8rem;color:var(--ink-muted);margin-top:0.6rem;text-align:center;}
+/* GOALS / INSIGHTS */
 .goals-panel,.insights-panel{display:none;flex-direction:column;padding:1.8rem;overflow-y:auto;gap:1.3rem;}
 .goals-panel.active,.insights-panel.active{display:flex;}
-.goals-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--ink);}
+.section-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--ink);}
 .goals-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;}
 .goal-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;}
 .goal-card label{display:block;font-size:0.72rem;font-weight:600;color:var(--ink-muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:0.5rem;}
@@ -223,58 +232,77 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
 .week-bar{width:100%;border-radius:3px 3px 0 0;background:var(--sage);opacity:0.8;}
 .week-bar.today{background:var(--gold);opacity:1;}
 .week-bar-label{font-size:0.62rem;color:var(--ink-muted);font-weight:500;}
+.briefing-banner{background:linear-gradient(135deg,var(--sage) 0%,var(--sage-light) 100%);color:var(--white);border-radius:var(--radius);padding:1rem 1.2rem;display:flex;align-items:flex-start;gap:0.75rem;}
+.briefing-icon{font-size:1.4rem;flex-shrink:0;}
+.briefing-text{font-size:0.82rem;line-height:1.6;}
+.briefing-text strong{display:block;font-size:0.9rem;margin-bottom:0.2rem;}
+.photos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.6rem;margin-top:0.5rem;}
+.photo-thumb{aspect-ratio:1;border-radius:8px;overflow:hidden;border:1px solid var(--border-strong);cursor:pointer;position:relative;}
+.photo-thumb img{width:100%;height:100%;object-fit:cover;}
+.photo-thumb .photo-date{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.5);color:white;font-size:0.6rem;padding:2px 4px;text-align:center;}
+.photo-add{aspect-ratio:1;border-radius:8px;border:2px dashed var(--border-strong);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.5rem;color:var(--ink-muted);transition:all 0.15s;}
+.photo-add:hover{border-color:var(--sage);color:var(--sage);background:var(--sage-pale);}
+.export-btn{padding:0.75rem 1.5rem;background:var(--white);color:var(--sage);border:1.5px solid var(--sage);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:600;cursor:pointer;align-self:flex-start;transition:all 0.15s;}
+.export-btn:hover{background:var(--sage-pale);}
 </style>
 </head>
 <body>
-
+<canvas id="confetti-canvas"></canvas>
+ 
 <!-- AUTH SCREEN -->
 <div id="auth-screen">
   <div class="auth-card">
-    <div class="auth-logo">
-      <svg viewBox="0 0 24 24"><path d="M12 2C8.5 2 6 4.5 6 8c0 2.5 1.5 5 3 6.5V17a1 1 0 001 1h4a1 1 0 001-1v-2.5C16.5 13 18 10.5 18 8c0-3.5-2.5-6-6-6zm-1 18h2v1.5a.5.5 0 01-1 0V20H11z"/></svg>
-    </div>
+    <div class="auth-logo"><svg viewBox="0 0 24 24"><path d="M12 2C8.5 2 6 4.5 6 8c0 2.5 1.5 5 3 6.5V17a1 1 0 001 1h4a1 1 0 001-1v-2.5C16.5 13 18 10.5 18 8c0-3.5-2.5-6-6-6zm-1 18h2v1.5a.5.5 0 01-1 0V20H11z"/></svg></div>
     <div class="auth-brand">NutriSage</div>
     <div class="auth-tagline">AI Nutrition Intelligence — personalised for you</div>
-
-    <!-- Google Sign-In button rendered here -->
-    <div id="g_id_onload"
-      data-client_id="362085679733-pb0oves8bop838pctv8af8nhls474k1g.apps.googleusercontent.com"
-      data-callback="handleGoogleSignIn"
-      data-auto_prompt="false">
-    </div>
-    <div class="g_id_signin"
-      data-type="standard"
-      data-size="large"
-      data-theme="outline"
-      data-text="sign_in_with"
-      data-shape="rectangular"
-      data-logo_alignment="left"
-      data-width="340">
-    </div>
-
+    <div id="g_id_onload" data-client_id="362085679733-pb0oves8bop838pctv8af8nhls474k1g.apps.googleusercontent.com" data-callback="handleGoogleSignIn" data-auto_prompt="false"></div>
+    <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline" data-text="sign_in_with" data-shape="rectangular" data-logo_alignment="left" data-width="340"></div>
     <div class="auth-divider"><span>or</span></div>
-    <button class="guest-btn" onclick="continueAsGuest()">Continue as Guest</button>
-    <p class="auth-note">Signed-in users get their food log and chats saved across devices via JSONBin. Guests are stored locally in this browser only.</p>
+    <button class="guest-btn" id="guest-btn">Continue as Guest</button>
+    <p class="auth-note">Signed-in users get chats and food logs saved across devices. Guests start fresh every session.</p>
   </div>
 </div>
-
-
-
+ 
 <!-- TOAST -->
 <div id="toast"></div>
-
+ 
 <!-- RENAME MODAL -->
-<div id="rename-modal">
-  <div class="rename-card">
+<div class="modal-overlay" id="rename-modal">
+  <div class="modal-card">
     <h3>Rename Chat</h3>
-    <input class="rename-input" id="rename-input" placeholder="Chat name..." />
-    <div class="rename-actions">
-      <button class="rename-btn cancel" onclick="closeRename()">Cancel</button>
-      <button class="rename-btn save" onclick="confirmRename()">Save</button>
+    <input class="modal-input" id="rename-input" placeholder="Chat name..."/>
+    <div class="modal-actions">
+      <button class="modal-btn cancel" id="rename-cancel">Cancel</button>
+      <button class="modal-btn confirm" id="rename-confirm">Save</button>
     </div>
   </div>
 </div>
-
+ 
+<!-- TEMPLATE MODAL -->
+<div class="modal-overlay" id="template-modal">
+  <div class="modal-card">
+    <h3>Save Meal Template</h3>
+    <p style="font-size:0.8rem;color:var(--ink-muted);margin-bottom:1rem;">Save today's meals as a one-tap template.</p>
+    <input class="modal-input" id="template-input" placeholder='e.g. "My usual breakfast"'/>
+    <div class="modal-actions">
+      <button class="modal-btn cancel" id="template-cancel">Cancel</button>
+      <button class="modal-btn confirm" id="template-confirm">Save Template</button>
+    </div>
+  </div>
+</div>
+ 
+<!-- SCANNER MODAL -->
+<div class="modal-overlay" id="scanner-modal">
+  <div class="modal-card">
+    <h3>📷 Barcode Scanner</h3>
+    <video id="scanner-video" autoplay playsinline muted></video>
+    <div class="scanner-status" id="scanner-status">Point camera at a barcode...</div>
+    <div class="modal-actions" style="margin-top:1rem;">
+      <button class="modal-btn cancel" id="scanner-close">Close</button>
+    </div>
+  </div>
+</div>
+ 
 <!-- NAV -->
 <nav>
   <div class="logo">
@@ -282,45 +310,43 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
     <div><span class="logo-text">NutriSage</span><span class="logo-sub">AI Nutrition Intelligence</span></div>
   </div>
   <div class="nav-center">
-    <button class="nav-tab active" onclick="switchView('tracker')">Tracker</button>
-    <button class="nav-tab" onclick="switchView('goals')">Goals</button>
-    <button class="nav-tab" onclick="switchView('insights')">Insights</button>
+    <button class="nav-tab active" id="tab-tracker">Tracker</button>
+    <button class="nav-tab" id="tab-goals">Goals</button>
+    <button class="nav-tab" id="tab-insights">Insights</button>
   </div>
   <div class="nav-right">
-    <div class="user-pill" id="user-pill">
-      <div class="user-avatar-init" id="user-init">?</div>
-      <span id="user-name-label">Guest</span>
-    </div>
-    <button class="dark-toggle" id="dark-toggle" onclick="toggleDark()" title="Toggle dark mode">🌙</button><button class="signout-btn" onclick="signOut()">Sign out</button>
+    <div class="streak-badge" id="streak-badge" style="display:none">🔥 <span id="streak-count">0</span></div>
+    <div class="user-pill" id="user-pill"><div class="user-avatar-init" id="user-init">?</div><span id="user-name-label">Guest</span></div>
+    <button class="dark-toggle" id="dark-toggle" title="Toggle dark mode">🌙</button>
+    <button class="signout-btn" id="signout-btn">Sign out</button>
   </div>
 </nav>
-
+ 
 <div class="app-wrap">
-
   <!-- CHAT SIDEBAR -->
   <div class="chat-sidebar">
     <div class="sidebar-header">
       <span class="sidebar-title">Chats</span>
-      <button class="new-chat-btn" onclick="newChat()">+ New</button>
+      <button class="new-chat-btn" id="new-chat-btn">+ New</button>
     </div>
-    <div id="guest-notice" class="guest-notice" style="display:none;">
-      ⚠️ Guest mode — chats saved in this browser only. Sign in to sync across devices.
-    </div>
-    <div class="chat-list" id="chat-list">
-      <div class="sidebar-empty">No saved chats yet.<br>Start a conversation and save it!</div>
-    </div>
+    <div id="guest-notice" class="guest-notice" style="display:none;">⚠️ Guest mode — chats not saved. Sign in to sync across devices.</div>
+    <div class="chat-list" id="chat-list"></div>
   </div>
-
+ 
   <!-- LOG PANEL -->
   <div class="left-panel">
     <div class="panel-header">
-      <div class="panel-title">Daily Log</div>
-      <div class="panel-sub">Track every meal, snack, and drink</div>
+      <div><div class="panel-title">Daily Log</div><div class="panel-sub">Track every meal, snack &amp; drink</div></div>
+      <div class="panel-actions">
+        <button class="panel-icon-btn" id="scan-btn-panel" title="Scan barcode">📷</button>
+        <button class="panel-icon-btn" id="template-save-btn" title="Save as template">⭐</button>
+        <button class="panel-icon-btn" id="export-btn-panel" title="Export PDF">📄</button>
+      </div>
     </div>
     <div class="date-nav">
-      <button onclick="changeDay(-1)">&#8249;</button>
+      <button id="day-prev">&#8249;</button>
       <span class="date-label" id="date-label">Today</span>
-      <button onclick="changeDay(1)">&#8250;</button>
+      <button id="day-next">&#8250;</button>
     </div>
     <div class="calorie-ring-section">
       <div class="ring-wrap">
@@ -328,10 +354,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
           <circle cx="41" cy="41" r="34" fill="none" stroke="#E8F2EC" stroke-width="8"/>
           <circle id="ring-progress" cx="41" cy="41" r="34" fill="none" stroke="#2D5A3D" stroke-width="8" stroke-linecap="round" stroke-dasharray="213.63" stroke-dashoffset="213.63" style="transition:stroke-dashoffset 0.6s ease;"/>
         </svg>
-        <div class="ring-center">
-          <span class="ring-cal" id="ring-cal">0</span>
-          <span class="ring-label">/ <span id="ring-goal">2000</span></span>
-        </div>
+        <div class="ring-center"><span class="ring-cal" id="ring-cal">0</span><span class="ring-label">/ <span id="ring-goal">2000</span></span></div>
       </div>
       <div class="macro-bars">
         <div class="macro-row"><div class="macro-info"><span class="macro-name">Protein</span><span class="macro-val"><span id="m-protein">0</span>g</span></div><div class="macro-bar-bg"><div class="macro-bar-fill bar-protein" id="bar-protein" style="width:0%"></div></div></div>
@@ -340,46 +363,50 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
         <div class="macro-row"><div class="macro-info"><span class="macro-name">Fiber</span><span class="macro-val"><span id="m-fiber">0</span>g</span></div><div class="macro-bar-bg"><div class="macro-bar-fill" id="bar-fiber" style="width:0%;background:#7C9DBF;"></div></div></div>
       </div>
     </div>
+    <div class="water-section">
+      <span class="water-label">💧 Water</span>
+      <div class="water-cups" id="water-cups"></div>
+      <span class="water-count" id="water-count">0 / 8</span>
+    </div>
+    <div class="template-bar" id="template-bar"></div>
     <div class="food-log" id="food-log"></div>
   </div>
-
-  <!-- RIGHT: CHAT or GOALS or INSIGHTS -->
+ 
+  <!-- RIGHT AREA -->
   <div style="display:flex;flex-direction:column;overflow:hidden;">
-
+ 
     <!-- TRACKER VIEW -->
     <div class="right-panel" id="tracker-view">
       <div class="chat-header">
         <div class="chat-header-left">
           <div class="ai-avatar"><svg viewBox="0 0 24 24"><path d="M12 2C8.5 2 6 4.5 6 8c0 2.5 1.5 5 3 6.5V17a1 1 0 001 1h4a1 1 0 001-1v-2.5C16.5 13 18 10.5 18 8c0-3.5-2.5-6-6-6z"/></svg></div>
-          <div class="ai-info">
-            <h3 id="current-chat-title">New Chat</h3>
-            <div class="ai-status"><span class="status-dot"></span>Ready to help</div>
-          </div>
+          <div class="ai-info"><h3 id="current-chat-title">New Chat</h3><div class="ai-status"><span class="status-dot"></span>Ready to help</div></div>
         </div>
         <div class="chat-header-actions">
-          <button class="chat-hdr-btn" onclick="saveCurrentChat()" title="Save chat">💾 Save</button>
-          <button class="chat-hdr-btn danger" onclick="clearChat()" title="Clear chat">🗑 Clear</button>
+          <button class="chat-hdr-btn" id="save-chat-btn">💾 Save</button>
+          <button class="chat-hdr-btn danger" id="clear-chat-btn">🗑 Clear</button>
         </div>
       </div>
       <div class="chat-messages" id="chat-messages"></div>
       <div class="quick-suggestions" id="quick-suggestions">
-        <div class="quick-chip" onclick="sendQuick(this)">I had 2 eggs for breakfast</div>
-        <div class="quick-chip" onclick="sendQuick(this)">Calories in a banana?</div>
-        <div class="quick-chip" onclick="sendQuick(this)">How much protein do I need?</div>
-        <div class="quick-chip" onclick="sendQuick(this)">Best foods for fat loss?</div>
-        <div class="quick-chip" onclick="sendQuick(this)">Analyse a chicken salad</div>
+        <div class="quick-chip">I had 2 eggs for breakfast</div>
+        <div class="quick-chip">Calories in a banana?</div>
+        <div class="quick-chip">How much protein do I need?</div>
+        <div class="quick-chip">Best foods for fat loss?</div>
+        <div class="quick-chip">Analyse a chicken salad</div>
       </div>
       <div class="chat-input-area">
         <div class="chat-input-wrap">
-          <textarea class="chat-input" id="chat-input" rows="1" placeholder="Describe what you ate, or ask Sage anything…" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
-          <button class="send-btn" id="send-btn" onclick="sendMessage()"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg></button>
+          <textarea class="chat-input" id="chat-input" rows="1" placeholder="Describe what you ate, or ask Sage anything…"></textarea>
+          <button class="scan-btn" id="scan-btn-chat" title="Scan barcode">📷</button>
+          <button class="send-btn" id="send-btn"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg></button>
         </div>
       </div>
     </div>
-
+ 
     <!-- GOALS VIEW -->
     <div class="goals-panel" id="goals-view">
-      <div class="goals-title">Your Nutrition Goals</div>
+      <div class="section-title">Your Nutrition Goals</div>
       <div id="tdee-result" class="tdee-result" style="display:none">
         <div><div class="tdee-num" id="tdee-num">—</div><div class="tdee-label">kcal / day (TDEE)</div></div>
         <div class="tdee-breakdown">
@@ -397,11 +424,11 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
         <div class="goal-card"><label>Height (cm)</label><input type="number" id="g-height" value="175"></div>
         <div class="goal-card" style="grid-column:span 2"><label>Activity Level</label>
           <select id="g-activity">
-            <option value="1.2">Sedentary (desk job, little exercise)</option>
+            <option value="1.2">Sedentary</option>
             <option value="1.375">Lightly active (1–3 days/week)</option>
             <option value="1.55" selected>Moderately active (3–5 days/week)</option>
             <option value="1.725">Very active (6–7 days/week)</option>
-            <option value="1.9">Extremely active (athlete / physical job)</option>
+            <option value="1.9">Extremely active</option>
           </select>
         </div>
         <div class="goal-card" style="grid-column:span 2"><label>Goal</label>
@@ -413,561 +440,829 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
           </select>
         </div>
       </div>
-      <button class="goal-save-btn" onclick="calculateGoals()">Calculate &amp; Save Goals</button>
-      <div class="insight-card"><h3>How TDEE is Calculated</h3><p>NutriSage uses the <strong>Mifflin-St Jeor equation</strong> — the gold-standard formula used by clinical dietitians. Your BMR is multiplied by your activity factor to get TDEE, then your goal offset is applied.</p></div>
+      <button class="goal-save-btn" id="calc-goals-btn">Calculate &amp; Save Goals</button>
+      <div class="insight-card"><h3>How TDEE is Calculated</h3><p>NutriSage uses the <strong>Mifflin-St Jeor equation</strong> — the gold-standard formula used by clinical dietitians.</p></div>
     </div>
-
+ 
     <!-- INSIGHTS VIEW -->
     <div class="insights-panel" id="insights-view">
-      <div class="goals-title">Weekly Insights</div>
+      <div class="section-title">Weekly Insights</div>
+      <div class="briefing-banner" id="briefing-banner" style="display:none">
+        <div class="briefing-icon">🌅</div>
+        <div class="briefing-text"><strong>Good morning!</strong><span id="briefing-text"></span></div>
+      </div>
       <div class="insight-card"><h3>Calorie Intake — This Week</h3><div class="week-bar-chart" id="week-chart"></div></div>
       <div class="goals-grid">
         <div class="insight-card"><h3>🥦 Foods Logged</h3><p id="foods-logged-count" style="font-size:1.9rem;font-family:'Playfair Display',serif;color:var(--sage);font-weight:700;">0</p><p>items today</p></div>
         <div class="insight-card"><h3>🎯 Goal Progress</h3><p id="goal-pct" style="font-size:1.9rem;font-family:'Playfair Display',serif;color:var(--gold);font-weight:700;">0%</p><p>of daily calorie goal</p></div>
       </div>
+      <div class="insight-card"><h3>📸 Progress Photos</h3><div class="photos-grid" id="photos-grid"></div></div>
       <div class="insight-card"><h3>💡 Today's Insight</h3><p id="daily-tip">Log your first meal to get a personalised tip from Sage.</p></div>
       <div class="insight-card"><h3>📊 Macro Split</h3><p id="macro-split-text" style="color:var(--ink-muted);font-size:0.8rem;">No foods logged yet.</p></div>
+      <button class="export-btn" id="export-btn-insights">📄 Export Weekly Report as PDF</button>
     </div>
-
+ 
   </div>
 </div>
-
+ 
 <script>
-// ══════════════════════════════════════════════
-// CONFIG
-// ══════════════════════════════════════════════
-const JSONBIN_KEY  = '$2a$10$i7DPokBsiBm67vNMZ76N/eV6/tAWr8L3WC9X8eRK7FB2O5GGXRI/K';
-const JSONBIN_BIN  = '6a009e5aadc21f119a7d73b5';
-const JSONBIN_URL  = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN}`;
-const WORKER_URL   = 'https://nutrisage-api.pokalkhan123.workers.dev';
-
-// ══════════════════════════════════════════════
-// STATE
-// ══════════════════════════════════════════════
-const state = {
-  user: null,          // { name, email, picture, isGuest }
-  meals: { Breakfast:[], Lunch:[], Dinner:[], Snacks:[] },
-  goals: { calories:2000, protein:150, carbs:225, fat:67 },
+(function() {
+'use strict';
+ 
+// ── CONFIG ──────────────────────────────────────
+var JSONBIN_KEY = '$2a$10$i7DPokBsiBm67vNMZ76N/eV6/tAWr8L3WC9X8eRK7FB2O5GGXRI/K';
+var JSONBIN_BIN = '6a009e5aadc21f119a7d73b5';
+var JSONBIN_URL = 'https://api.jsonbin.io/v3/b/' + JSONBIN_BIN;
+var WORKER_URL  = 'https://nutrisage-api.pokalkhan123.workers.dev';
+ 
+// ── STATE ────────────────────────────────────────
+var state = {
+  user: null,
+  meals: {Breakfast:[], Lunch:[], Dinner:[], Snacks:[]},
+  goals: {calories:2000, protein:150, carbs:225, fat:67},
   dayOffset: 0,
-  chats: [],           // [{ id, title, messages, savedAt }]
+  chats: [],
   currentChatId: null,
   conversationHistory: [],
-  renameTargetId: null
+  water: 0,
+  templates: [],
+  photos: [],
+  streak: 0,
+  lastLogDate: null
 };
-
-// ══════════════════════════════════════════════
-// TOAST
-// ══════════════════════════════════════════════
-function toast(msg, isError=false) {
-  const el = document.getElementById('toast');
+ 
+// ── HELPERS ──────────────────────────────────────
+function qs(id) { return document.getElementById(id); }
+ 
+function toast(msg, isError) {
+  var el = qs('toast');
   el.textContent = msg;
   el.className = 'show' + (isError ? ' error' : '');
   clearTimeout(el._t);
-  el._t = setTimeout(() => el.className = '', 2500);
+  el._t = setTimeout(function() { el.className = ''; }, 2500);
 }
-
-// ══════════════════════════════════════════════
-// AUTH
-// ══════════════════════════════════════════════
-function handleGoogleSignIn(response) {
-  const payload = parseJwt(response.credential);
-  state.user = { name: payload.name, email: payload.email, picture: payload.picture, isGuest: false };
+ 
+function escapeHtml(t) {
+  return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+ 
+function formatAIText(t) {
+  return t
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/^[•\-] (.+)$/gm, '<div style="display:flex;gap:5px;margin:2px 0"><span>•</span><span>$1</span></div>')
+    .replace(/^(\d+)\. (.+)$/gm, '<div style="display:flex;gap:5px;margin:2px 0"><span>$1.</span><span>$2</span></div>')
+    .replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
+}
+ 
+function openModal(id) { qs(id).classList.add('show'); }
+function closeModal(id) { qs(id).classList.remove('show'); }
+ 
+function parseJwt(token) {
+  var base64 = token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');
+  return JSON.parse(decodeURIComponent(atob(base64).split('').map(function(c){
+    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join('')));
+}
+ 
+function userLocalKey() {
+  return 'ns_user_' + state.user.email.replace(/[^a-z0-9]/gi, '_');
+}
+ 
+function getPayload() {
+  return {
+    meals: state.meals, chats: state.chats, goals: state.goals,
+    water: state.water, templates: state.templates, photos: state.photos,
+    streak: state.streak, lastLogDate: state.lastLogDate
+  };
+}
+ 
+// ── DARK MODE ────────────────────────────────────
+function toggleDark() {
+  var isDark = document.body.classList.toggle('dark');
+  localStorage.setItem('ns_dark', isDark ? '1' : '0');
+  qs('dark-toggle').textContent = isDark ? '☀️' : '🌙';
+}
+ 
+function applyDark() {
+  var stored = localStorage.getItem('ns_dark');
+  var prefersDark = window.matchMedia('(prefers-color-scheme:dark)').matches;
+  if (stored === '1' || (stored === null && prefersDark)) {
+    document.body.classList.add('dark');
+    qs('dark-toggle').textContent = '☀️';
+  }
+}
+ 
+// ── AUTH ─────────────────────────────────────────
+window.handleGoogleSignIn = function(response) {
+  var payload = parseJwt(response.credential);
+  state.user = {name: payload.name, email: payload.email, picture: payload.picture, isGuest: false};
   localStorage.setItem('ns_user', JSON.stringify(state.user));
   finishAuth();
-}
-
+};
+ 
 function continueAsGuest() {
-  state.user = { name: 'Guest', email: 'guest', picture: null, isGuest: true };
+  state.user = {name: 'Guest', email: 'guest_' + Date.now(), picture: null, isGuest: true};
   finishAuth();
 }
-
+ 
 function finishAuth() {
-  document.getElementById('auth-screen').style.display = 'none';
+  qs('auth-screen').style.display = 'none';
   updateUserPill();
   loadData();
 }
-
+ 
 function signOut() {
   localStorage.removeItem('ns_user');
   location.reload();
 }
-
+ 
 function updateUserPill() {
-  const u = state.user;
-  document.getElementById('user-name-label').textContent = u.isGuest ? 'Guest' : u.name.split(' ')[0];
-  const init = document.getElementById('user-init');
+  var u = state.user;
+  qs('user-name-label').textContent = u.isGuest ? 'Guest' : u.name.split(' ')[0];
+  var init = qs('user-init');
   if (u.picture && !u.isGuest) {
-    const img = document.createElement('img');
+    var img = document.createElement('img');
     img.src = u.picture; img.className = 'user-avatar';
     init.replaceWith(img);
   } else {
     init.textContent = u.name[0].toUpperCase();
   }
-  if (u.isGuest) document.getElementById('guest-notice').style.display = 'block';
+  if (u.isGuest) qs('guest-notice').style.display = 'block';
 }
-
-function parseJwt(token) {
-  const base64 = token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');
-  return JSON.parse(decodeURIComponent(atob(base64).split('').map(c=>'%'+('00'+c.charCodeAt(0).toString(16)).slice(-2)).join('')));
-}
-
-// ══════════════════════════════════════════════
-// DATA LOAD / SAVE (JSONBin for signed-in, localStorage for guests)
-// ══════════════════════════════════════════════
-function userLocalKey() {
-  // Stable localStorage key per signed-in user
-  return 'ns_user_' + state.user.email.replace(/[^a-z0-9]/gi, '_');
-}
-
-async function loadData() {
+ 
+// ── DATA ─────────────────────────────────────────
+function loadData() {
   if (state.user.isGuest) {
-    // Guests always start fresh — no persistence
-    state.meals = { Breakfast:[], Lunch:[], Dinner:[], Snacks:[] };
-    state.chats = [];
-    state.goals = { calories:2000, protein:150, carbs:225, fat:67 };
-  } else {
-    // 1. Load from localStorage first (instant, reliable)
-    const localKey = userLocalKey();
-    const localRaw = localStorage.getItem(localKey);
-    if (localRaw) {
-      try {
-        const d = JSON.parse(localRaw);
-        if(d.meals) state.meals = d.meals;
-        if(d.chats) state.chats = d.chats;
-        if(d.goals) state.goals = d.goals;
-      } catch(e) {}
-    }
-    // 2. Also try JSONBin in background to sync across devices
-    try {
-      const res = await fetch(JSONBIN_URL+'/latest', { headers:{'X-Access-Key':JSONBIN_KEY} });
-      const data = await res.json();
-      if (data.record) {
-        const userKey = 'u_' + state.user.email.replace(/[^a-z0-9]/gi, '_');
-        const ud = data.record[userKey];
-        if (ud) {
-          // Only use JSONBin data if it has more chats than local (more up to date)
-          const localChats = state.chats.length;
-          const remoteChats = (ud.chats||[]).length;
-          if (remoteChats >= localChats) {
-            if(ud.meals) state.meals = ud.meals;
-            if(ud.chats) state.chats = ud.chats;
-            if(ud.goals) state.goals = ud.goals;
-            // Sync back to localStorage
-            localStorage.setItem(localKey, JSON.stringify({ meals:state.meals, chats:state.chats, goals:state.goals }));
-          }
-        }
-      }
-    } catch(e) { console.warn('JSONBin sync failed, using local data'); }
+    state.meals = {Breakfast:[], Lunch:[], Dinner:[], Snacks:[]};
+    state.chats = []; state.goals = {calories:2000, protein:150, carbs:225, fat:67};
+    state.water = 0; state.templates = []; state.photos = []; state.streak = 0;
+    afterLoad();
+    return;
   }
-  renderChatList();
-  newChat();
-  updateUI();
-  updateDateLabel();
-}
-
-let _saveTimer=null;
-async function persistData() {
-  if (state.user.isGuest) return; // Guests never persist
-  const payload = { meals:state.meals, chats:state.chats, goals:state.goals };
-  // Always save to localStorage immediately (fast, reliable)
-  localStorage.setItem(userLocalKey(), JSON.stringify(payload));
-  // Then sync to JSONBin in background
-  clearTimeout(_saveTimer);
-  _saveTimer = setTimeout(async () => {
+  var localRaw = localStorage.getItem(userLocalKey());
+  if (localRaw) {
     try {
-      const res = await fetch(JSONBIN_URL+'/latest', { headers:{'X-Access-Key':JSONBIN_KEY} });
-      const data = await res.json();
-      const record = data.record || {};
-      const userKey = 'u_' + state.user.email.replace(/[^a-z0-9]/gi, '_');
-      record[userKey] = payload;
-      await fetch(JSONBIN_URL, {
-        method:'PUT',
-        headers:{'Content-Type':'application/json','X-Access-Key':JSONBIN_KEY},
-        body: JSON.stringify(record)
-      });
-      toast('✓ Saved');
-    } catch(e) { toast('Saved locally (sync failed)', false); }
+      var d = JSON.parse(localRaw);
+      if (d.meals) state.meals = d.meals;
+      if (d.chats) state.chats = d.chats;
+      if (d.goals) state.goals = d.goals;
+      if (d.water !== undefined) state.water = d.water;
+      if (d.templates) state.templates = d.templates;
+      if (d.photos) state.photos = d.photos;
+      if (d.streak !== undefined) state.streak = d.streak;
+      if (d.lastLogDate) state.lastLogDate = d.lastLogDate;
+    } catch(e) {}
+  }
+  afterLoad();
+  // Background JSONBin sync
+  fetch(JSONBIN_URL + '/latest', {headers: {'X-Access-Key': JSONBIN_KEY}})
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (!data.record) return;
+      var uk = 'u_' + state.user.email.replace(/[^a-z0-9]/gi, '_');
+      var ud = data.record[uk];
+      if (!ud) return;
+      var remoteChats = (ud.chats || []).length;
+      var localChats = state.chats.length;
+      if (remoteChats >= localChats) {
+        if (ud.meals) state.meals = ud.meals;
+        if (ud.chats) state.chats = ud.chats;
+        if (ud.goals) state.goals = ud.goals;
+        if (ud.water !== undefined) state.water = ud.water;
+        if (ud.templates) state.templates = ud.templates;
+        if (ud.photos) state.photos = ud.photos;
+        if (ud.streak !== undefined) state.streak = ud.streak;
+        if (ud.lastLogDate) state.lastLogDate = ud.lastLogDate;
+        localStorage.setItem(userLocalKey(), JSON.stringify(getPayload()));
+        updateStreak(); renderChatList(); renderTemplateBar(); renderWater(); updateUI();
+      }
+    }).catch(function() {});
+}
+ 
+function afterLoad() {
+  updateStreak(); renderChatList(); renderTemplateBar(); renderWater();
+  newChat(); updateUI(); updateDateLabel(); showMorningBriefing();
+}
+ 
+var _saveTimer = null;
+function persistData() {
+  if (state.user.isGuest) return;
+  var payload = getPayload();
+  localStorage.setItem(userLocalKey(), JSON.stringify(payload));
+  clearTimeout(_saveTimer);
+  _saveTimer = setTimeout(function() {
+    fetch(JSONBIN_URL + '/latest', {headers: {'X-Access-Key': JSONBIN_KEY}})
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var record = data.record || {};
+        var uk = 'u_' + state.user.email.replace(/[^a-z0-9]/gi, '_');
+        record[uk] = payload;
+        return fetch(JSONBIN_URL, {
+          method: 'PUT',
+          headers: {'Content-Type': 'application/json', 'X-Access-Key': JSONBIN_KEY},
+          body: JSON.stringify(record)
+        });
+      })
+      .then(function() { toast('✓ Saved'); })
+      .catch(function() { toast('Saved locally'); });
   }, 900);
 }
-
-// ══════════════════════════════════════════════
-// VIEW SWITCHING
-// ══════════════════════════════════════════════
+ 
+// ── STREAK ───────────────────────────────────────
+function updateStreak() {
+  var today = new Date().toDateString();
+  var yesterday = new Date(Date.now() - 86400000).toDateString();
+  if (state.lastLogDate && state.lastLogDate !== today && state.lastLogDate !== yesterday) {
+    state.streak = 0;
+  }
+  renderStreak();
+}
+ 
+function incrementStreak() {
+  var today = new Date().toDateString();
+  if (state.lastLogDate === today) return;
+  var yesterday = new Date(Date.now() - 86400000).toDateString();
+  if (state.lastLogDate === yesterday || !state.lastLogDate) state.streak++;
+  else state.streak = 1;
+  state.lastLogDate = today;
+  renderStreak(); persistData();
+}
+ 
+function renderStreak() {
+  var badge = qs('streak-badge');
+  var count = qs('streak-count');
+  if (state.streak > 0) {
+    badge.style.display = 'flex';
+    count.textContent = state.streak + ' day' + (state.streak !== 1 ? 's' : '');
+  } else {
+    badge.style.display = 'none';
+  }
+}
+ 
+// ── VIEWS ────────────────────────────────────────
 function switchView(view) {
-  document.querySelectorAll('.nav-tab').forEach((t,i)=>t.classList.toggle('active',['tracker','goals','insights'][i]===view));
-  document.getElementById('tracker-view').style.display = view==='tracker'?'flex':'none';
-  document.getElementById('goals-view').classList.toggle('active', view==='goals');
-  document.getElementById('insights-view').classList.toggle('active', view==='insights');
-  if (view==='insights') renderInsights();
+  ['tracker','goals','insights'].forEach(function(v, i) {
+    document.getElementById('tab-' + v).classList.toggle('active', v === view);
+  });
+  qs('tracker-view').style.display = view === 'tracker' ? 'flex' : 'none';
+  qs('goals-view').classList.toggle('active', view === 'goals');
+  qs('insights-view').classList.toggle('active', view === 'insights');
+  if (view === 'insights') renderInsights();
 }
-
-// ══════════════════════════════════════════════
-// DATE
-// ══════════════════════════════════════════════
+ 
+// ── DATE ─────────────────────────────────────────
 function updateDateLabel() {
-  const d = new Date(); d.setDate(d.getDate()+state.dayOffset);
-  const lbl = state.dayOffset===0?'Today':state.dayOffset===-1?'Yesterday':d.toLocaleDateString('en-GB',{weekday:'short',month:'short',day:'numeric'});
-  document.getElementById('date-label').textContent = lbl+', '+d.toLocaleDateString('en-GB',{month:'short',day:'numeric'});
+  var d = new Date(); d.setDate(d.getDate() + state.dayOffset);
+  var lbl = state.dayOffset === 0 ? 'Today' : state.dayOffset === -1 ? 'Yesterday' :
+    d.toLocaleDateString('en-GB', {weekday:'short', month:'short', day:'numeric'});
+  qs('date-label').textContent = lbl + ', ' + d.toLocaleDateString('en-GB', {month:'short', day:'numeric'});
 }
-function changeDay(n){state.dayOffset+=n;updateDateLabel();}
-
-// ══════════════════════════════════════════════
-// TOTALS & UI
-// ══════════════════════════════════════════════
-function getTotals(){
-  let t={cal:0,protein:0,carbs:0,fat:0,fiber:0};
-  Object.values(state.meals).flat().forEach(f=>{t.cal+=+f.cal||0;t.protein+=+f.protein||0;t.carbs+=+f.carbs||0;t.fat+=+f.fat||0;t.fiber+=+f.fiber||0;});
+ 
+// ── WATER ────────────────────────────────────────
+function renderWater() {
+  var cups = qs('water-cups'); cups.innerHTML = '';
+  for (var i = 0; i < 8; i++) {
+    var btn = document.createElement('button');
+    btn.className = 'water-cup' + (i < state.water ? ' filled' : '');
+    btn.title = i < state.water ? 'Click to remove' : 'Add a glass';
+    (function(idx) {
+      btn.addEventListener('click', function() {
+        setWater(idx < state.water ? idx : idx + 1);
+      });
+    })(i);
+    cups.appendChild(btn);
+  }
+  qs('water-count').textContent = state.water + ' / 8';
+}
+ 
+function setWater(n) {
+  state.water = n; renderWater(); persistData();
+  if (n === 8) toast('💧 8 glasses reached!');
+}
+ 
+// ── TOTALS & UI ──────────────────────────────────
+function getTotals() {
+  var t = {cal:0, protein:0, carbs:0, fat:0, fiber:0};
+  Object.keys(state.meals).forEach(function(meal) {
+    state.meals[meal].forEach(function(f) {
+      t.cal += +f.cal || 0; t.protein += +f.protein || 0;
+      t.carbs += +f.carbs || 0; t.fat += +f.fat || 0; t.fiber += +f.fiber || 0;
+    });
+  });
   return t;
 }
-function updateUI(){
-  const t=getTotals();
-  const pct=Math.min(t.cal/state.goals.calories,1);
-  const circ=2*Math.PI*34;
-  document.getElementById('ring-cal').textContent=Math.round(t.cal);
-  document.getElementById('ring-goal').textContent=state.goals.calories;
-  document.getElementById('ring-progress').style.strokeDashoffset=circ-circ*pct;
-  document.getElementById('ring-progress').style.stroke=pct>1?'#C0745A':'#2D5A3D';
-  document.getElementById('m-protein').textContent=Math.round(t.protein);
-  document.getElementById('m-carbs').textContent=Math.round(t.carbs);
-  document.getElementById('m-fat').textContent=Math.round(t.fat);
-  document.getElementById('m-fiber').textContent=Math.round(t.fiber);
-  document.getElementById('bar-protein').style.width=Math.min(t.protein/state.goals.protein*100,100)+'%';
-  document.getElementById('bar-carbs').style.width=Math.min(t.carbs/state.goals.carbs*100,100)+'%';
-  document.getElementById('bar-fat').style.width=Math.min(t.fat/state.goals.fat*100,100)+'%';
-  document.getElementById('bar-fiber').style.width=Math.min(t.fiber/30*100,100)+'%';
+ 
+function updateUI() {
+  var t = getTotals();
+  var pct = Math.min(t.cal / state.goals.calories, 1);
+  var circ = 2 * Math.PI * 34;
+  qs('ring-cal').textContent = Math.round(t.cal);
+  qs('ring-goal').textContent = state.goals.calories;
+  qs('ring-progress').style.strokeDashoffset = circ - circ * pct;
+  qs('ring-progress').style.stroke = pct > 1 ? '#C0745A' : '#2D5A3D';
+  qs('m-protein').textContent = Math.round(t.protein);
+  qs('m-carbs').textContent = Math.round(t.carbs);
+  qs('m-fat').textContent = Math.round(t.fat);
+  qs('m-fiber').textContent = Math.round(t.fiber);
+  qs('bar-protein').style.width = Math.min(t.protein / state.goals.protein * 100, 100) + '%';
+  qs('bar-carbs').style.width = Math.min(t.carbs / state.goals.carbs * 100, 100) + '%';
+  qs('bar-fat').style.width = Math.min(t.fat / state.goals.fat * 100, 100) + '%';
+  qs('bar-fiber').style.width = Math.min(t.fiber / 30 * 100, 100) + '%';
+  if (pct >= 1 && pct < 1.05) launchConfetti();
   renderLog();
 }
-function renderLog(){
-  const c=document.getElementById('food-log'); c.innerHTML='';
-  for(const[meal,items]of Object.entries(state.meals)){
-    const mc=items.reduce((s,f)=>s+(+f.cal||0),0);
-    const sec=document.createElement('div'); sec.className='meal-section';
-    sec.innerHTML=`<div class="meal-header"><span class="meal-name">${meal}</span><span class="meal-total">${Math.round(mc)} kcal</span></div>`;
-    if(!items.length){sec.innerHTML+=`<div class="empty-meal">Nothing logged yet</div>`;}
-    items.forEach((food,idx)=>{
-      const el=document.createElement('div'); el.className='food-item';
-      el.innerHTML=`<div><div class="food-item-name">${food.name}</div><div class="food-item-detail">${food.protein}g P · ${food.carbs}g C · ${food.fat}g F</div></div><span class="food-item-cal">${Math.round(food.cal)}</span><button class="food-item-del" onclick="removeFood('${meal}',${idx})">✕</button>`;
+ 
+function renderLog() {
+  var c = qs('food-log'); c.innerHTML = '';
+  Object.keys(state.meals).forEach(function(meal) {
+    var items = state.meals[meal];
+    var mc = items.reduce(function(s, f) { return s + (+f.cal || 0); }, 0);
+    var sec = document.createElement('div'); sec.className = 'meal-section';
+    sec.innerHTML = '<div class="meal-header"><span class="meal-name">' + meal + '</span><span class="meal-total">' + Math.round(mc) + ' kcal</span></div>';
+    if (!items.length) {
+      sec.innerHTML += '<div class="empty-meal">Nothing logged yet</div>';
+    }
+    items.forEach(function(food, idx) {
+      var el = document.createElement('div'); el.className = 'food-item';
+      el.innerHTML = '<div><div class="food-item-name">' + food.name + '</div><div class="food-item-detail">' + food.protein + 'g P · ' + food.carbs + 'g C · ' + food.fat + 'g F</div></div><span class="food-item-cal">' + Math.round(food.cal) + '</span><button class="food-item-del" data-meal="' + meal + '" data-idx="' + idx + '">✕</button>';
       sec.appendChild(el);
     });
     c.appendChild(sec);
-  }
+  });
+  // Event delegation for delete
+  c.querySelectorAll('.food-item-del').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var meal = this.getAttribute('data-meal');
+      var idx = parseInt(this.getAttribute('data-idx'));
+      state.meals[meal].splice(idx, 1);
+      updateUI(); persistData();
+    });
+  });
 }
-function removeFood(meal,idx){state.meals[meal].splice(idx,1);updateUI();persistData();}
-
-// ══════════════════════════════════════════════
-// GOALS
-// ══════════════════════════════════════════════
-function calculateGoals(){
-  const age=+document.getElementById('g-age').value;
-  const sex=document.getElementById('g-sex').value;
-  const w=+document.getElementById('g-weight').value;
-  const h=+document.getElementById('g-height').value;
-  const act=+document.getElementById('g-activity').value;
-  const goal=document.getElementById('g-goal').value;
-  const bmr=sex==='male'?10*w+6.25*h-5*age+5:10*w+6.25*h-5*age-161;
-  const tdee=Math.round(bmr*act);
-  const off={deficit:-500,maintain:0,bulk:250,'aggressive-bulk':500};
-  const target=tdee+off[goal];
-  const protein=Math.round(w*2);
-  const fat=Math.round(target*0.28/9);
-  const carbs=Math.round((target-protein*4-fat*9)/4);
-  state.goals={calories:target,protein,carbs,fat};
-  const gl={deficit:'Fat Loss',maintain:'Maintenance',bulk:'Muscle Gain','aggressive-bulk':'Aggressive Bulk'};
-  document.getElementById('tdee-result').style.display='flex';
-  document.getElementById('tdee-num').textContent=tdee;
-  document.getElementById('tdee-goal-label').textContent=gl[goal];
-  document.getElementById('tdee-target').textContent=target+' kcal';
-  document.getElementById('tdee-protein').textContent=protein+'g';
-  document.getElementById('tdee-carbs').textContent=carbs+'g';
-  document.getElementById('tdee-fat').textContent=fat+'g';
-  document.getElementById('ring-goal').textContent=target;
+ 
+// ── TEMPLATES ────────────────────────────────────
+function renderTemplateBar() {
+  var bar = qs('template-bar'); bar.innerHTML = '';
+  state.templates.forEach(function(t, i) {
+    var chip = document.createElement('div'); chip.className = 'template-chip';
+    chip.textContent = '⭐ ' + t.name;
+    chip.addEventListener('click', function() { logTemplate(i); });
+    bar.appendChild(chip);
+  });
+}
+ 
+function logTemplate(i) {
+  var t = state.templates[i];
+  if (!confirm('Log "' + t.name + '"? This will add all its foods to today\'s log.')) return;
+  Object.keys(t.meals).forEach(function(meal) {
+    t.meals[meal].forEach(function(food) { state.meals[meal].push(Object.assign({}, food)); });
+  });
+  updateUI(); persistData(); incrementStreak();
+  toast('✓ "' + t.name + '" logged!');
+}
+ 
+// ── GOALS ────────────────────────────────────────
+function calculateGoals() {
+  var age = +qs('g-age').value, sex = qs('g-sex').value;
+  var w = +qs('g-weight').value, h = +qs('g-height').value;
+  var act = +qs('g-activity').value, goal = qs('g-goal').value;
+  var bmr = sex === 'male' ? 10*w + 6.25*h - 5*age + 5 : 10*w + 6.25*h - 5*age - 161;
+  var tdee = Math.round(bmr * act);
+  var off = {deficit:-500, maintain:0, bulk:250, 'aggressive-bulk':500};
+  var target = tdee + off[goal];
+  var protein = Math.round(w * 2), fat = Math.round(target * 0.28 / 9);
+  var carbs = Math.round((target - protein*4 - fat*9) / 4);
+  state.goals = {calories:target, protein:protein, carbs:carbs, fat:fat};
+  var gl = {deficit:'Fat Loss', maintain:'Maintenance', bulk:'Muscle Gain', 'aggressive-bulk':'Aggressive Bulk'};
+  qs('tdee-result').style.display = 'flex';
+  qs('tdee-num').textContent = tdee;
+  qs('tdee-goal-label').textContent = gl[goal];
+  qs('tdee-target').textContent = target + ' kcal';
+  qs('tdee-protein').textContent = protein + 'g';
+  qs('tdee-carbs').textContent = carbs + 'g';
+  qs('tdee-fat').textContent = fat + 'g';
+  qs('ring-goal').textContent = target;
   updateUI(); persistData(); toast('Goals saved!');
 }
-
-// ══════════════════════════════════════════════
-// INSIGHTS
-// ══════════════════════════════════════════════
-function renderInsights(){
-  const t=getTotals();
-  const total=Object.values(state.meals).flat().length;
-  document.getElementById('foods-logged-count').textContent=total;
-  document.getElementById('goal-pct').textContent=Math.min(Math.round(t.cal/state.goals.calories*100),999)+'%';
-  const days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-  const data=[1820,2100,1650,2250,1900,2400,t.cal];
-  const max=Math.max(...data,500);
-  const chart=document.getElementById('week-chart'); chart.innerHTML='';
-  const ti=new Date().getDay()===0?6:new Date().getDay()-1;
-  data.forEach((val,i)=>{
-    const col=document.createElement('div'); col.className='week-bar-col';
-    col.innerHTML=`<div class="week-bar${i===ti?' today':''}" style="height:${Math.round(val/max*72)}px"></div><span class="week-bar-label">${days[i]}</span>`;
+ 
+// ── INSIGHTS ─────────────────────────────────────
+function renderInsights() {
+  var t = getTotals();
+  var total = Object.keys(state.meals).reduce(function(s, m) { return s + state.meals[m].length; }, 0);
+  qs('foods-logged-count').textContent = total;
+  qs('goal-pct').textContent = Math.min(Math.round(t.cal / state.goals.calories * 100), 999) + '%';
+  var days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  var data = [1820,2100,1650,2250,1900,2400,t.cal];
+  var max = Math.max.apply(null, data.concat([500]));
+  var chart = qs('week-chart'); chart.innerHTML = '';
+  var ti = new Date().getDay() === 0 ? 6 : new Date().getDay() - 1;
+  data.forEach(function(val, i) {
+    var col = document.createElement('div'); col.className = 'week-bar-col';
+    col.innerHTML = '<div class="week-bar' + (i === ti ? ' today' : '') + '" style="height:' + Math.round(val/max*72) + 'px"></div><span class="week-bar-label">' + days[i] + '</span>';
     chart.appendChild(col);
   });
-  if(t.cal>0){
-    const mk=t.protein*4+t.carbs*4+t.fat*9;
-    document.getElementById('macro-split-text').textContent=`Protein ${Math.round(t.protein*4/mk*100)}% · Carbs ${Math.round(t.carbs*4/mk*100)}% · Fat ${Math.round(t.fat*9/mk*100)}%`;
+  if (t.cal > 0) {
+    var mk = t.protein*4 + t.carbs*4 + t.fat*9;
+    qs('macro-split-text').textContent = 'Protein ' + Math.round(t.protein*4/mk*100) + '% · Carbs ' + Math.round(t.carbs*4/mk*100) + '% · Fat ' + Math.round(t.fat*9/mk*100) + '%';
   }
-  const tips=['Spread protein across 3–4 meals for optimal muscle protein synthesis.','Add leafy greens to boost micronutrients without many extra calories.','Aim for 35ml of water per kg of bodyweight daily for optimal hydration.','Eating slowly can reduce intake by up to 20% by allowing leptin signals to reach your brain.','Oats, sweet potato, and brown rice provide sustained energy and are rich in fiber.'];
-  if(total>0) document.getElementById('daily-tip').textContent=tips[total%tips.length];
+  var tips = [
+    'Spread protein across 3–4 meals for optimal muscle protein synthesis.',
+    'Add leafy greens to boost micronutrients without many extra calories.',
+    'Aim for 35ml of water per kg of bodyweight daily.',
+    'Eating slowly can reduce intake by up to 20%.',
+    'Oats, sweet potato, and brown rice provide sustained energy and are rich in fiber.'
+  ];
+  if (total > 0) qs('daily-tip').textContent = tips[total % tips.length];
+  renderPhotosGrid();
 }
-
-// ══════════════════════════════════════════════
-// CHAT MANAGEMENT
-// ══════════════════════════════════════════════
-function newChat(){
-  state.currentChatId = 'chat_'+Date.now();
-  state.conversationHistory = [];
-  document.getElementById('current-chat-title').textContent = 'New Chat';
-  document.getElementById('quick-suggestions').style.display='flex';
-  const msgs=document.getElementById('chat-messages');
-  msgs.innerHTML='';
-  addMessage('ai',`👋 Hello! I'm <strong>Sage</strong>, your personal nutrition intelligence assistant.<br><br>I can help you with:<br>• 🍽️ Calorie &amp; macro lookup for any food<br>• 🧮 Portion estimation from descriptions<br>• 🔬 Micronutrient analysis<br>• 🧠 Nutrition science questions<br>• 🎯 Meal planning &amp; goal optimisation<br>• 🍳 Recipe breakdowns &amp; supplement guidance<br><br>Just tell me what you ate, or ask me anything!`,'');
-  renderChatList();
-}
-
-function saveCurrentChat(){
-  if(!state.conversationHistory.length){ toast('Nothing to save yet — start a conversation first!', true); return; }
-  const existing = state.chats.find(c=>c.id===state.currentChatId);
-  const title = document.getElementById('current-chat-title').textContent;
-  const chatTitle = title==='New Chat' ? generateTitle() : title;
-  if(existing){
-    existing.messages=state.conversationHistory.slice();
-    existing.savedAt=new Date().toISOString();
-    existing.title=chatTitle;
-  } else {
-    state.chats.unshift({ id:state.currentChatId, title:chatTitle, messages:state.conversationHistory.slice(), savedAt:new Date().toISOString() });
+ 
+function showMorningBriefing() {
+  var hour = new Date().getHours();
+  if (hour >= 5 && hour < 12) {
+    var banner = qs('briefing-banner'), txt = qs('briefing-text');
+    banner.style.display = 'flex';
+    var tips = [
+      'Remember to drink water first thing — it kickstarts your metabolism before breakfast.',
+      'A protein-rich breakfast keeps you fuller longer. Aim for at least ' + Math.round(state.goals.protein * 0.25) + 'g protein this morning.',
+      'Consistency beats perfection. Just log today and keep your streak going! 🔥',
+      'Today\'s goal is ' + state.goals.calories + ' kcal — you\'ve got this! 💪'
+    ];
+    txt.textContent = tips[new Date().getDay() % tips.length];
   }
-  document.getElementById('current-chat-title').textContent=chatTitle;
-  renderChatList(); persistData(); toast('Chat saved!');
 }
-
-function generateTitle(){
-  const first=state.conversationHistory.find(m=>m.role==='user');
-  if(!first) return 'Saved Chat';
-  const t=first.content.replace(/<[^>]+>/g,'').slice(0,35);
-  return t.length<first.content.length ? t+'…' : t;
-}
-
-function loadChat(id){
-  const chat=state.chats.find(c=>c.id===id);
-  if(!chat) return;
-  state.currentChatId=id;
-  state.conversationHistory=chat.messages.slice();
-  document.getElementById('current-chat-title').textContent=chat.title;
-  document.getElementById('quick-suggestions').style.display='none';
-  const msgs=document.getElementById('chat-messages'); msgs.innerHTML='';
-  chat.messages.forEach(m=>{
-    addMessage(m.role==='user'?'user':'ai', m.role==='user'?escapeHtml(m.content):formatAIText(m.content), m.content);
+ 
+// ── PROGRESS PHOTOS ──────────────────────────────
+function renderPhotosGrid() {
+  var grid = qs('photos-grid'); grid.innerHTML = '';
+  state.photos.forEach(function(p, i) {
+    var div = document.createElement('div'); div.className = 'photo-thumb';
+    div.innerHTML = '<img src="' + p.data + '" alt="Progress photo"><div class="photo-date">' + p.date + '</div>';
+    div.addEventListener('click', function() {
+      if (confirm('Delete this photo?')) {
+        state.photos.splice(i, 1); persistData(); renderPhotosGrid();
+      }
+    });
+    grid.appendChild(div);
   });
-  renderChatList();
-}
-
-function deleteChat(id, e){
-  e.stopPropagation();
-  if(!confirm('Delete this chat?')) return;
-  state.chats=state.chats.filter(c=>c.id!==id);
-  if(state.currentChatId===id) newChat();
-  renderChatList(); persistData(); toast('Chat deleted');
-}
-
-function clearChat(){
-  if(!confirm('Clear this conversation? It won\'t be deleted from saved chats.')) return;
-  newChat();
-}
-
-let _renameId=null;
-function openRename(id,e){
-  e.stopPropagation();
-  _renameId=id;
-  const chat=state.chats.find(c=>c.id===id);
-  document.getElementById('rename-input').value=chat?chat.title:'';
-  document.getElementById('rename-modal').classList.add('show');
-  setTimeout(()=>document.getElementById('rename-input').focus(),50);
-}
-function closeRename(){ document.getElementById('rename-modal').classList.remove('show'); _renameId=null; }
-function confirmRename(){
-  const val=document.getElementById('rename-input').value.trim();
-  if(!val){toast('Enter a name',true);return;}
-  const chat=state.chats.find(c=>c.id===_renameId);
-  if(chat){
-    chat.title=val;
-    if(state.currentChatId===_renameId) document.getElementById('current-chat-title').textContent=val;
-  }
-  closeRename(); renderChatList(); persistData(); toast('Renamed!');
-}
-document.getElementById('rename-modal').addEventListener('click',function(e){if(e.target===this)closeRename();});
-
-function renderChatList(){
-  const list=document.getElementById('chat-list');
-  if(!state.chats.length){
-    list.innerHTML='<div class="sidebar-empty">No saved chats yet.<br>Start a conversation and hit <strong>Save</strong>!</div>';
-    return;
-  }
-  list.innerHTML='';
-  state.chats.forEach(chat=>{
-    const d=new Date(chat.savedAt);
-    const meta=d.toLocaleDateString('en-GB',{month:'short',day:'numeric'})+' · '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
-    const el=document.createElement('div');
-    el.className='chat-item'+(chat.id===state.currentChatId?' active':'');
-    el.onclick=()=>loadChat(chat.id);
-    el.innerHTML=`
-      <div class="chat-item-title">${chat.title}</div>
-      <div class="chat-item-meta">${meta}</div>
-      <div class="chat-item-actions">
-        <button class="chat-action-btn save" onclick="openRename('${chat.id}',event)" title="Rename">✏️</button>
-        <button class="chat-action-btn" onclick="deleteChat('${chat.id}',event)" title="Delete">🗑</button>
-      </div>`;
-    list.appendChild(el);
+  var add = document.createElement('div'); add.className = 'photo-add'; add.textContent = '+'; add.title = 'Add progress photo';
+  add.addEventListener('click', function() {
+    var input = document.createElement('input'); input.type = 'file'; input.accept = 'image/*';
+    input.onchange = function(e) {
+      var file = e.target.files[0]; if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function(ev) {
+        state.photos.unshift({data: ev.target.result, date: new Date().toLocaleDateString('en-GB', {day:'numeric', month:'short'})});
+        if (state.photos.length > 12) state.photos.pop();
+        persistData(); renderPhotosGrid(); toast('Photo saved!');
+      };
+      reader.readAsDataURL(file);
+    };
+    input.click();
   });
+  grid.appendChild(add);
 }
-
-// ══════════════════════════════════════════════
-// CHAT / AI
-// ══════════════════════════════════════════════
-function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}}
-function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,110)+'px';}
-function sendQuick(el){document.getElementById('chat-input').value=el.textContent;sendMessage();}
-
-function addMessage(role,html,raw){
-  const msgs=document.getElementById('chat-messages');
-  const div=document.createElement('div');
-  div.className=`msg ${role}`;
-  div.innerHTML=`<div class="msg-avatar">${role==='ai'?'S':'Me'}</div><div class="msg-bubble">${html}</div>`;
-  msgs.appendChild(div);
-  msgs.scrollTop=msgs.scrollHeight;
-  if(raw!==undefined&&raw!=='') {
-    state.conversationHistory.push({role:role==='ai'?'assistant':'user',content:raw});
+ 
+// ── BARCODE SCANNER ──────────────────────────────
+var _scanStream = null, _scanInterval = null;
+ 
+function openScanner() {
+  openModal('scanner-modal');
+  qs('scanner-status').textContent = 'Starting camera...';
+  navigator.mediaDevices.getUserMedia({video: {facingMode: 'environment'}})
+    .then(function(stream) {
+      _scanStream = stream;
+      var video = qs('scanner-video');
+      video.srcObject = stream;
+      return video.play();
+    })
+    .then(function() {
+      qs('scanner-status').textContent = 'Point camera at a barcode!';
+      if ('BarcodeDetector' in window) {
+        var detector = new BarcodeDetector({formats: ['ean_13','ean_8','upc_a','upc_e','code_128']});
+        var video = qs('scanner-video');
+        _scanInterval = setInterval(function() {
+          detector.detect(video).then(function(barcodes) {
+            if (barcodes.length > 0) {
+              var code = barcodes[0].rawValue;
+              stopScanner();
+              qs('chat-input').value = 'I scanned barcode ' + code + ' — what food is this and what are its calories?';
+              switchView('tracker');
+              sendMessage();
+            }
+          }).catch(function() {});
+        }, 500);
+      } else {
+        qs('scanner-status').textContent = 'Barcode detection not supported. Try Chrome on Android!';
+      }
+    })
+    .catch(function() {
+      qs('scanner-status').textContent = 'Camera access denied. Please allow camera access and try again.';
+    });
+}
+ 
+function stopScanner() {
+  clearInterval(_scanInterval);
+  if (_scanStream) _scanStream.getTracks().forEach(function(t) { t.stop(); });
+  _scanStream = null;
+  closeModal('scanner-modal');
+}
+ 
+// ── CONFETTI ─────────────────────────────────────
+var _confettiDone = false;
+function launchConfetti() {
+  if (_confettiDone) return; _confettiDone = true;
+  setTimeout(function() { _confettiDone = false; }, 5000);
+  toast('🎉 Daily calorie goal reached!');
+  var canvas = qs('confetti-canvas'), ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+  var colors = ['#2D5A3D','#C9A84C','#E8C97A','#3D7A55','#C0745A'];
+  var particles = [];
+  for (var i = 0; i < 120; i++) {
+    particles.push({
+      x: Math.random() * canvas.width, y: -10,
+      vx: (Math.random() - 0.5) * 4, vy: Math.random() * 3 + 2,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      r: Math.random() * 6 + 3, rot: Math.random() * 360, vrot: (Math.random() - 0.5) * 5
+    });
   }
+  var frame = 0;
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(function(p) {
+      p.x += p.vx; p.y += p.vy; p.rot += p.vrot;
+      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot * Math.PI / 180);
+      ctx.fillStyle = p.color; ctx.fillRect(-p.r/2, -p.r/2, p.r, p.r); ctx.restore();
+    });
+    frame++;
+    if (frame < 180) requestAnimationFrame(draw);
+    else ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+  draw();
 }
-
-function showTyping(){
-  const msgs=document.getElementById('chat-messages');
-  const div=document.createElement('div');
-  div.className='msg ai typing-msg';
-  div.innerHTML=`<div class="msg-avatar">S</div><div class="typing-dots"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
-  msgs.appendChild(div); msgs.scrollTop=msgs.scrollHeight;
+ 
+// ── EXPORT PDF ───────────────────────────────────
+function exportPDF() {
+  var t = getTotals();
+  var total = Object.keys(state.meals).reduce(function(s, m) { return s + state.meals[m].length; }, 0);
+  var date = new Date().toLocaleDateString('en-GB', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
+  var rows = '';
+  Object.keys(state.meals).forEach(function(meal) {
+    var items = state.meals[meal];
+    if (!items.length) {
+      rows += '<tr><td colspan="5" style="color:#888;font-style:italic;padding:4px 8px">' + meal + ': Nothing logged</td></tr>';
+    } else {
+      items.forEach(function(f, i) {
+        rows += '<tr style="background:' + (i%2 ? '#f9f9f9' : 'white') + '"><td style="padding:4px 8px">' + (i===0 ? '<strong>'+meal+'</strong>' : '') + '</td><td style="padding:4px 8px">' + f.name + '</td><td style="padding:4px 8px;text-align:center">' + Math.round(f.cal) + '</td><td style="padding:4px 8px;text-align:center">' + f.protein + 'g</td><td style="padding:4px 8px;text-align:center">' + f.carbs + 'g</td></tr>';
+      });
+    }
+  });
+  var html = '<!DOCTYPE html><html><head><title>NutriSage Report</title><style>body{font-family:Helvetica,sans-serif;padding:40px;color:#1A1F1C;}h1{color:#2D5A3D;}h2{color:#2D5A3D;font-size:16px;margin:24px 0 8px;}.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:20px 0;}.box{background:#E8F2EC;border-radius:10px;padding:16px;text-align:center;}.box-val{font-size:28px;font-weight:700;color:#2D5A3D;}.box-lbl{font-size:12px;color:#4A5248;}table{width:100%;border-collapse:collapse;font-size:13px;}th{background:#2D5A3D;color:white;padding:6px 8px;text-align:left;}.footer{margin-top:32px;font-size:11px;color:#8A9288;border-top:1px solid #eee;padding-top:12px;}</style></head><body><h1>🌿 NutriSage</h1><p>' + date + '</p><h2>Daily Summary</h2><div class="summary"><div class="box"><div class="box-val">' + Math.round(t.cal) + '</div><div class="box-lbl">Calories</div></div><div class="box"><div class="box-val">' + Math.round(t.protein) + 'g</div><div class="box-lbl">Protein</div></div><div class="box"><div class="box-val">' + Math.round(t.carbs) + 'g</div><div class="box-lbl">Carbs</div></div><div class="box"><div class="box-val">' + Math.round(t.fat) + 'g</div><div class="box-lbl">Fat</div></div></div><h2>Food Log (' + total + ' items)</h2><table><tr><th>Meal</th><th>Food</th><th>Calories</th><th>Protein</th><th>Carbs</th></tr>' + rows + '</table><h2>Goals</h2><p>Target: ' + state.goals.calories + ' kcal · ' + state.goals.protein + 'g protein · ' + state.goals.carbs + 'g carbs · ' + state.goals.fat + 'g fat<br>Water: ' + state.water + '/8 glasses · Streak: ' + state.streak + ' days</p><div class="footer">Generated by NutriSage — AI Nutrition Intelligence</div></body></html>';
+  var w = window.open('', '_blank');
+  w.document.write(html); w.document.close();
+  setTimeout(function() { w.print(); }, 500);
+}
+ 
+// ── CHAT ─────────────────────────────────────────
+function addMessage(role, html, raw) {
+  var msgs = qs('chat-messages');
+  var div = document.createElement('div'); div.className = 'msg ' + role;
+  div.innerHTML = '<div class="msg-avatar">' + (role === 'ai' ? 'S' : 'Me') + '</div><div class="msg-bubble">' + html + '</div>';
+  msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
+  if (raw !== undefined && raw !== '') state.conversationHistory.push({role: role === 'ai' ? 'assistant' : 'user', content: raw});
+}
+ 
+function showTyping() {
+  var msgs = qs('chat-messages');
+  var div = document.createElement('div'); div.className = 'msg ai typing-msg';
+  div.innerHTML = '<div class="msg-avatar">S</div><div class="typing-dots"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';
+  msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
   return div;
 }
-
-async function sendMessage(){
-  const input=document.getElementById('chat-input');
-  const text=input.value.trim();
-  if(!text) return;
-  input.value=''; input.style.height='auto';
-  document.getElementById('send-btn').disabled=true;
-  document.getElementById('quick-suggestions').style.display='none';
-  addMessage('user',escapeHtml(text),text);
-  const typing=showTyping();
-
-  try {
-    const sysPrompt=`You are Sage, an elite AI nutrition and dietetics expert in the NutriSage app. Deep knowledge of: macronutrients, micronutrients (vitamins A–K, minerals, trace elements), glycaemic index, insulin response, bioavailability, phytonutrients, antioxidants. Full food database knowledge — calories and macros for thousands of foods raw/cooked/processed/restaurant/international. Metabolism: BMR, TDEE, Mifflin-St Jeor, Harris-Benedict, TEF, NEAT, hormones (leptin, ghrelin, insulin, glucagon, thyroid, cortisol). Body composition: deficit/surplus, muscle protein synthesis, leucine threshold, refeeding, body recomposition. Dietary approaches: omnivore, vegetarian, vegan, Mediterranean, DASH, keto, carnivore, paleo, IIFYM, intuitive eating, IF (16:8, 5:2, OMAD), caloric cycling. Clinical: diabetes, CVD, renal diet, coeliac, IBS, food allergies, sports nutrition, supplements (creatine, protein, caffeine, omega-3, vitamin D, magnesium, zinc). Food science: NOVA classification, food labelling, cooking and nutrient retention.
-
-WHEN USER LOGS FOOD: respond helpfully AND append at the very end:
-<food_data>{"name":"Food Name","cal":0,"protein":0,"carbs":0,"fat":0,"fiber":0,"meal":"Breakfast"}</food_data>
-Meal = Breakfast|Lunch|Dinner|Snacks (infer from time or context). Time now: ${new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}.
-Be specific with numbers. Warm and encouraging. Never preachy.
-User goals: ${state.goals.calories}kcal | ${state.goals.protein}g protein | ${state.goals.carbs}g carbs | ${state.goals.fat}g fat.
-Today's intake: ${JSON.stringify(getTotals())}.`;
-
-    const messages = [
-      {role:'system', content: sysPrompt},
-      ...state.conversationHistory.slice(-14).map(m=>({role:m.role,content:m.content})),
-      {role:'user', content:text}
-    ];
-
-    const res=await fetch(WORKER_URL,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({messages})
+ 
+function sendMessage() {
+  var input = qs('chat-input');
+  var text = input.value.trim(); if (!text) return;
+  input.value = ''; input.style.height = 'auto';
+  qs('send-btn').disabled = true;
+  qs('quick-suggestions').style.display = 'none';
+  addMessage('user', escapeHtml(text), text);
+  var typing = showTyping();
+ 
+  var sys = 'You are Sage, an elite AI nutrition and dietetics expert in the NutriSage app. Deep knowledge of: macronutrients, micronutrients (vitamins A-K, minerals, trace elements), glycaemic index, insulin response, bioavailability, phytonutrients, antioxidants. Full food database knowledge — calories and macros for thousands of foods raw/cooked/processed/restaurant/international. Metabolism: BMR, TDEE, Mifflin-St Jeor, Harris-Benedict, TEF, NEAT, hormones. Body composition: deficit/surplus, muscle protein synthesis, refeeding, body recomposition. Dietary approaches: omnivore, vegetarian, vegan, Mediterranean, DASH, keto, carnivore, paleo, IIFYM, intuitive eating, IF, caloric cycling. Clinical: diabetes, CVD, renal diet, coeliac, IBS, food allergies, sports nutrition, supplements. Food science: NOVA classification, food labelling, cooking and nutrient retention.\nWHEN USER LOGS FOOD: respond helpfully AND append at the very end:\n<food_data>{"name":"Food Name","cal":0,"protein":0,"carbs":0,"fat":0,"fiber":0,"meal":"Breakfast"}</food_data>\nMeal = Breakfast|Lunch|Dinner|Snacks. Time: ' + new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}) + '.\nBe specific with numbers. Warm and encouraging. Never preachy.\nUser goals: ' + state.goals.calories + 'kcal | ' + state.goals.protein + 'g protein | ' + state.goals.carbs + 'g carbs | ' + state.goals.fat + 'g fat.\nToday intake: ' + JSON.stringify(getTotals()) + '.';
+ 
+  var messages = [{role:'system', content: sys}];
+  state.conversationHistory.slice(-14).forEach(function(m) { messages.push({role: m.role, content: m.content}); });
+  messages.push({role:'user', content: text});
+ 
+  fetch(WORKER_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({messages: messages})})
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      typing.remove();
+      if (data.error) throw new Error(typeof data.error === 'object' ? data.error.message : data.error);
+      var raw = (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) || '';
+      if (!raw) throw new Error('Empty response from AI');
+      var foodMatch = raw.match(/<food_data>([\s\S]*?)<\/food_data>/);
+      var display = raw.replace(/<food_data>[\s\S]*?<\/food_data>/g, '').trim();
+      var html = formatAIText(display);
+      if (foodMatch) { try { html += renderFoodCard(JSON.parse(foodMatch[1])); } catch(e) {} }
+      addMessage('ai', html, raw);
+    })
+    .catch(function(err) {
+      typing.remove();
+      addMessage('ai', '<em style="color:var(--red)">⚠️ ' + (err.message || 'Something went wrong') + '. Please try again!</em>', '');
+    })
+    .finally(function() {
+      qs('send-btn').disabled = false;
     });
-
-    const data=await res.json();
-    typing.remove();
-    if(data.error) throw new Error(typeof data.error==='object'?data.error.message:data.error);
-
-    const raw=data.choices?.[0]?.message?.content||'';
-    if(!raw) throw new Error('Empty response from AI');
-    const foodMatch=raw.match(/<food_data>([\s\S]*?)<\/food_data>/);
-    const display=raw.replace(/<food_data>[\s\S]*?<\/food_data>/g,'').trim();
-    let html=formatAIText(display);
-    if(foodMatch){try{html+=renderFoodCard(JSON.parse(foodMatch[1]));}catch(e){}}
-    addMessage('ai',html,raw);
-
-  } catch(err) {
-    typing.remove();
-    addMessage('ai',`<em style="color:var(--red)">⚠️ Something went wrong: ${err.message}. Please try again!</em>`,'');
+}
+ 
+var _pendingFood = {};
+function renderFoodCard(food) {
+  var id = 'f' + Date.now();
+  _pendingFood[id] = food;
+  var opts = ['Breakfast','Lunch','Dinner','Snacks'].map(function(m) {
+    return '<option' + (m === food.meal ? ' selected' : '') + '>' + m + '</option>';
+  }).join('');
+  return '<div class="food-result-card"><div class="frc-name">' + food.name + '</div><div class="frc-macros"><div class="frc-macro"><span class="frc-macro-val">' + Math.round(food.cal) + '</span><span class="frc-macro-lbl">kcal</span></div><div class="frc-macro"><span class="frc-macro-val">' + food.protein + 'g</span><span class="frc-macro-lbl">protein</span></div><div class="frc-macro"><span class="frc-macro-val">' + food.carbs + 'g</span><span class="frc-macro-lbl">carbs</span></div><div class="frc-macro"><span class="frc-macro-val">' + food.fat + 'g</span><span class="frc-macro-lbl">fat</span></div></div><select id="ms_' + id + '" style="width:100%;margin-bottom:7px;padding:5px 9px;border:1px solid var(--border-strong);border-radius:7px;font-family:inherit;font-size:0.8rem;background:var(--cream);color:var(--ink);outline:none;">' + opts + '</select><button class="frc-add-btn" data-fid="' + id + '">➕ Add to Log</button></div>';
+}
+ 
+// ── CHAT MANAGEMENT ──────────────────────────────
+function newChat() {
+  state.currentChatId = 'chat_' + Date.now();
+  state.conversationHistory = [];
+  qs('current-chat-title').textContent = 'New Chat';
+  qs('quick-suggestions').style.display = 'flex';
+  qs('chat-messages').innerHTML = '';
+  addMessage('ai', '👋 Hello! I\'m <strong>Sage</strong>, your personal nutrition intelligence assistant.<br><br>I can help you with:<br>• 🍽️ Calorie &amp; macro lookup for any food<br>• 🧮 Portion estimation from descriptions<br>• 🔬 Micronutrient &amp; supplement guidance<br>• 🧠 Nutrition science questions<br>• 🎯 Meal planning &amp; goal optimisation<br>• 📷 Barcode scanning (tap the camera button!)<br><br>Just tell me what you ate, or ask me anything!', '');
+  renderChatList();
+}
+ 
+function saveCurrentChat() {
+  if (!state.conversationHistory.length) { toast('Nothing to save yet!', true); return; }
+  var title = qs('current-chat-title').textContent;
+  var chatTitle = title === 'New Chat' ? generateTitle() : title;
+  var existing = null;
+  state.chats.forEach(function(c) { if (c.id === state.currentChatId) existing = c; });
+  if (existing) { existing.messages = state.conversationHistory.slice(); existing.savedAt = new Date().toISOString(); existing.title = chatTitle; }
+  else state.chats.unshift({id: state.currentChatId, title: chatTitle, messages: state.conversationHistory.slice(), savedAt: new Date().toISOString()});
+  qs('current-chat-title').textContent = chatTitle;
+  renderChatList(); persistData(); toast('Chat saved!');
+}
+ 
+function generateTitle() {
+  var first = null;
+  state.conversationHistory.forEach(function(m) { if (!first && m.role === 'user') first = m; });
+  if (!first) return 'Saved Chat';
+  var t = first.content.replace(/<[^>]+>/g, '').slice(0, 35);
+  return t.length < first.content.length ? t + '…' : t;
+}
+ 
+function loadChat(id) {
+  var chat = null;
+  state.chats.forEach(function(c) { if (c.id === id) chat = c; });
+  if (!chat) return;
+  state.currentChatId = id; state.conversationHistory = chat.messages.slice();
+  qs('current-chat-title').textContent = chat.title;
+  qs('quick-suggestions').style.display = 'none';
+  qs('chat-messages').innerHTML = '';
+  chat.messages.forEach(function(m) {
+    addMessage(m.role === 'user' ? 'user' : 'ai', m.role === 'user' ? escapeHtml(m.content) : formatAIText(m.content), m.content);
+  });
+  renderChatList();
+}
+ 
+function deleteChat(id) {
+  if (!confirm('Delete this chat?')) return;
+  state.chats = state.chats.filter(function(c) { return c.id !== id; });
+  if (state.currentChatId === id) newChat();
+  renderChatList(); persistData(); toast('Chat deleted');
+}
+ 
+var _renameId = null;
+function openRename(id) {
+  _renameId = id;
+  var chat = null; state.chats.forEach(function(c) { if (c.id === id) chat = c; });
+  qs('rename-input').value = chat ? chat.title : '';
+  openModal('rename-modal');
+  setTimeout(function() { qs('rename-input').focus(); }, 50);
+}
+ 
+function confirmRename() {
+  var val = qs('rename-input').value.trim();
+  if (!val) { toast('Enter a name', true); return; }
+  state.chats.forEach(function(c) { if (c.id === _renameId) c.title = val; });
+  if (state.currentChatId === _renameId) qs('current-chat-title').textContent = val;
+  closeModal('rename-modal'); renderChatList(); persistData(); toast('Renamed!');
+}
+ 
+function renderChatList() {
+  var list = qs('chat-list');
+  if (!state.chats.length) {
+    list.innerHTML = '<div class="sidebar-empty">No saved chats yet.<br>Start a conversation and hit <strong>Save</strong>!</div>';
+    return;
   }
-  document.getElementById('send-btn').disabled=false;
+  list.innerHTML = '';
+  state.chats.forEach(function(chat) {
+    var d = new Date(chat.savedAt);
+    var meta = d.toLocaleDateString('en-GB', {month:'short', day:'numeric'}) + ' · ' + d.toLocaleTimeString('en-GB', {hour:'2-digit', minute:'2-digit'});
+    var el = document.createElement('div'); el.className = 'chat-item' + (chat.id === state.currentChatId ? ' active' : '');
+    el.innerHTML = '<div class="chat-item-title">' + chat.title + '</div><div class="chat-item-meta">' + meta + '</div><div class="chat-item-actions"><button class="chat-action-btn rename-btn" data-id="' + chat.id + '" title="Rename">✏️</button><button class="chat-action-btn delete-btn" data-id="' + chat.id + '" title="Delete">🗑</button></div>';
+    el.addEventListener('click', function(e) {
+      if (!e.target.closest('.chat-item-actions')) loadChat(chat.id);
+    });
+    list.appendChild(el);
+  });
+  list.querySelectorAll('.rename-btn').forEach(function(btn) {
+    btn.addEventListener('click', function(e) { e.stopPropagation(); openRename(this.getAttribute('data-id')); });
+  });
+  list.querySelectorAll('.delete-btn').forEach(function(btn) {
+    btn.addEventListener('click', function(e) { e.stopPropagation(); deleteChat(this.getAttribute('data-id')); });
+  });
 }
-
-function renderFoodCard(food){
-  const id='f'+Date.now();
-  window._pf=window._pf||{};
-  window._pf[id]=food;
-  const opts=['Breakfast','Lunch','Dinner','Snacks'].map(m=>`<option${m===food.meal?' selected':''}>${m}</option>`).join('');
-  return `<div class="food-result-card">
-    <div class="frc-name">${food.name}</div>
-    <div class="frc-macros">
-      <div class="frc-macro"><span class="frc-macro-val">${Math.round(food.cal)}</span><span class="frc-macro-lbl">kcal</span></div>
-      <div class="frc-macro"><span class="frc-macro-val">${food.protein}g</span><span class="frc-macro-lbl">protein</span></div>
-      <div class="frc-macro"><span class="frc-macro-val">${food.carbs}g</span><span class="frc-macro-lbl">carbs</span></div>
-      <div class="frc-macro"><span class="frc-macro-val">${food.fat}g</span><span class="frc-macro-lbl">fat</span></div>
-    </div>
-    <select id="ms_${id}" style="width:100%;margin-bottom:7px;padding:5px 9px;border:1px solid var(--border-strong);border-radius:7px;font-family:inherit;font-size:0.8rem;background:var(--cream);color:var(--ink);outline:none;">${opts}</select>
-    <button class="frc-add-btn" onclick="addFoodCard('${id}')">➕ Add to Log</button>
-  </div>`;
+ 
+// ── EVENT LISTENERS ──────────────────────────────
+function setupEvents() {
+  // Auth
+  qs('guest-btn').addEventListener('click', continueAsGuest);
+  qs('signout-btn').addEventListener('click', signOut);
+  // Dark mode
+  qs('dark-toggle').addEventListener('click', toggleDark);
+  // Nav tabs
+  qs('tab-tracker').addEventListener('click', function() { switchView('tracker'); });
+  qs('tab-goals').addEventListener('click', function() { switchView('goals'); });
+  qs('tab-insights').addEventListener('click', function() { switchView('insights'); });
+  // Date nav
+  qs('day-prev').addEventListener('click', function() { state.dayOffset--; updateDateLabel(); });
+  qs('day-next').addEventListener('click', function() { state.dayOffset++; updateDateLabel(); });
+  // Chat
+  qs('new-chat-btn').addEventListener('click', newChat);
+  qs('save-chat-btn').addEventListener('click', saveCurrentChat);
+  qs('clear-chat-btn').addEventListener('click', function() { if (confirm('Clear this conversation?')) newChat(); });
+  qs('send-btn').addEventListener('click', sendMessage);
+  qs('chat-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+  });
+  qs('chat-input').addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = Math.min(this.scrollHeight, 110) + 'px';
+  });
+  // Quick chips
+  qs('quick-suggestions').addEventListener('click', function(e) {
+    var chip = e.target.closest('.quick-chip');
+    if (chip) { qs('chat-input').value = chip.textContent; sendMessage(); }
+  });
+  // Food card add buttons (delegated)
+  qs('chat-messages').addEventListener('click', function(e) {
+    var btn = e.target.closest('.frc-add-btn');
+    if (btn) {
+      var id = btn.getAttribute('data-fid');
+      var food = _pendingFood[id]; if (!food) return;
+      var meal = qs('ms_' + id).value;
+      state.meals[meal].push(Object.assign({}, food, {meal: meal}));
+      updateUI(); persistData(); incrementStreak();
+      btn.textContent = '✓ Added!'; btn.style.background = 'var(--gold)'; btn.disabled = true;
+    }
+  });
+  // Scanner
+  qs('scan-btn-panel').addEventListener('click', openScanner);
+  qs('scan-btn-chat').addEventListener('click', openScanner);
+  qs('scanner-close').addEventListener('click', stopScanner);
+  // Template
+  qs('template-save-btn').addEventListener('click', function() { openModal('template-modal'); });
+  qs('template-cancel').addEventListener('click', function() { closeModal('template-modal'); });
+  qs('template-confirm').addEventListener('click', function() {
+    var name = qs('template-input').value.trim();
+    if (!name) { toast('Enter a name', true); return; }
+    state.templates.push({name: name, meals: JSON.parse(JSON.stringify(state.meals))});
+    renderTemplateBar(); persistData(); closeModal('template-modal');
+    qs('template-input').value = ''; toast('Template saved!');
+  });
+  // Rename modal
+  qs('rename-cancel').addEventListener('click', function() { closeModal('rename-modal'); });
+  qs('rename-confirm').addEventListener('click', confirmRename);
+  qs('rename-input').addEventListener('keydown', function(e) { if (e.key === 'Enter') confirmRename(); });
+  // Goals
+  qs('calc-goals-btn').addEventListener('click', calculateGoals);
+  // Export
+  qs('export-btn-panel').addEventListener('click', exportPDF);
+  qs('export-btn-insights').addEventListener('click', exportPDF);
+  // Close modals on overlay click
+  ['rename-modal','template-modal','scanner-modal'].forEach(function(id) {
+    qs(id).addEventListener('click', function(e) { if (e.target === this) { if (id === 'scanner-modal') stopScanner(); else closeModal(id); } });
+  });
 }
-
-function addFoodCard(id){
-  const food=window._pf[id]; if(!food) return;
-  const meal=document.getElementById('ms_'+id).value;
-  state.meals[meal].push({...food,meal});
-  updateUI(); persistData();
-  const btn=document.querySelector(`button[onclick="addFoodCard('${id}')"]`);
-  if(btn){btn.textContent='✓ Added!';btn.style.background='var(--gold)';btn.disabled=true;}
+ 
+// ── BOOT ─────────────────────────────────────────
+applyDark();
+setupEvents();
+var stored = localStorage.getItem('ns_user');
+if (stored) {
+  try { state.user = JSON.parse(stored); finishAuth(); }
+  catch(e) { /* show auth screen */ }
 }
-
-function formatAIText(t){
-  return t
-    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g,'<em>$1</em>')
-    .replace(/^[•\-] (.+)$/gm,'<div style="display:flex;gap:5px;margin:2px 0"><span>•</span><span>$1</span></div>')
-    .replace(/^(\d+)\. (.+)$/gm,'<div style="display:flex;gap:5px;margin:2px 0"><span>$1.</span><span>$2</span></div>')
-    .replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
-}
-function escapeHtml(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-
-
-// ══════════════════════════════════════════════
-// DARK MODE
-// ══════════════════════════════════════════════
-function toggleDark(){
-  const isDark = document.body.classList.toggle("dark");
-  localStorage.setItem("ns_dark", isDark ? "1" : "0");
-  document.getElementById("dark-toggle").textContent = isDark ? "☀️" : "🌙";
-}
-function applyDark(){
-  const stored = localStorage.getItem("ns_dark");
-  if(stored==="1"||(!stored&&window.matchMedia("(prefers-color-scheme:dark)").matches)){
-    document.body.classList.add("dark");
-    const btn=document.getElementById("dark-toggle");
-    if(btn) btn.textContent="☀️";
-  }
-}
-
-// ══════════════════════════════════════════════
-// BOOT
-// ══════════════════════════════════════════════
-(function init(){
-  applyDark();
-  const stored=localStorage.getItem('ns_user');
-  if(stored){
-    try{
-      state.user=JSON.parse(stored);
-      finishAuth();
-      return;
-    }catch(e){}
-  }
-  // Show auth screen (already visible by default)
+ 
 })();
 </script>
 </body>
