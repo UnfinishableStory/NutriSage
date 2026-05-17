@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Background -->
+  <rect width="512" height="512" rx="114" fill="#2D5A3D"/>
+  <!-- Leaf/bulb icon -->
+  <path d="M256 80C196 80 148 128 148 188c0 44 26 88 52 114v60a18 18 0 0018 18h76a18 18 0 0018-18v-60c26-26 52-70 52-114 0-60-48-108-108-108zm-18 332h36v26a9 9 0 01-18 0v-26z" fill="#C9A84C"/>
+</svg>

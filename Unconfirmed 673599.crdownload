@@ -1,0 +1,60 @@
+const CACHE_NAME = 'nutrisage-v1';
+const ASSETS = [
+  '/NutriSage/',
+  '/NutriSage/index.html',
+  '/NutriSage/manifest.json',
+  'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap'
+];
+
+// Install — cache all core assets
+self.addEventListener('install', function(e) {
+  e.waitUntil(
+    caches.open(CACHE_NAME).then(function(cache) {
+      return cache.addAll(ASSETS);
+    }).catch(function() {})
+  );
+  self.skipWaiting();
+});
+
+// Activate — clean up old caches
+self.addEventListener('activate', function(e) {
+  e.waitUntil(
+    caches.keys().then(function(keys) {
+      return Promise.all(
+        keys.filter(function(k) { return k !== CACHE_NAME; })
+            .map(function(k) { return caches.delete(k); })
+      );
+    })
+  );
+  self.clients.claim();
+});
+
+// Fetch — serve from cache, fall back to network
+self.addEventListener('fetch', function(e) {
+  // Don't intercept API calls
+  if (e.request.url.includes('api.jsonbin.io') ||
+      e.request.url.includes('workers.dev') ||
+      e.request.url.includes('accounts.google.com') ||
+      e.request.url.includes('openrouter.ai')) {
+    return;
+  }
+
+  e.respondWith(
+    caches.match(e.request).then(function(cached) {
+      if (cached) return cached;
+      return fetch(e.request).then(function(response) {
+        // Cache successful GET requests
+        if (e.request.method === 'GET' && response.status === 200) {
+          var clone = response.clone();
+          caches.open(CACHE_NAME).then(function(cache) {
+            cache.put(e.request, clone);
+          });
+        }
+        return response;
+      }).catch(function() {
+        // Offline fallback — return cached index
+        return caches.match('/NutriSage/index.html');
+      });
+    })
+  );
+});
