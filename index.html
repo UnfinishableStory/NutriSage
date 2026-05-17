@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NutriSage — AI Calorie Intelligence</title>
+<meta name="theme-color" content="#2D5A3D">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NutriSage">
+<meta name="description" content="AI-powered nutrition companion. Track calories, log meals, and chat with Sage — your personal nutrition expert.">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
@@ -26,6 +33,14 @@ body.dark{
 body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;overflow:hidden;transition:background 0.3s,color 0.3s;}
 .dark-toggle{width:36px;height:36px;border-radius:9px;border:1px solid var(--border-strong);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:all 0.15s;}
 .dark-toggle:hover{background:var(--sage-pale);border-color:var(--sage);}
+
+/* PWA INSTALL BANNER */
+#pwa-banner{position:fixed;bottom:0;left:0;right:0;background:var(--sage);color:white;padding:0.85rem 1.5rem;display:none;align-items:center;justify-content:space-between;gap:1rem;z-index:8000;box-shadow:0 -4px 20px rgba(0,0,0,0.2);}
+#pwa-banner.show{display:flex;}
+.pwa-banner-text{font-size:0.85rem;font-weight:500;display:flex;align-items:center;gap:8px;}
+.pwa-banner-actions{display:flex;gap:0.5rem;flex-shrink:0;}
+.pwa-install-btn{padding:0.45rem 1rem;background:var(--gold);color:var(--ink);border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:600;cursor:pointer;}
+.pwa-dismiss-btn{padding:0.45rem 0.75rem;background:transparent;color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.3);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.82rem;cursor:pointer;}
 /* AUTH */
 #auth-screen{position:fixed;inset:0;background:linear-gradient(135deg,#1a3528 0%,#2D5A3D 60%,#3d7a55 100%);display:flex;align-items:center;justify-content:center;z-index:9999;}
 .auth-card{background:var(--white);border-radius:var(--radius-lg);padding:2.8rem 2.5rem;width:100%;max-width:400px;text-align:center;box-shadow:var(--shadow-lg);}
@@ -248,7 +263,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
 </head>
 <body>
 <canvas id="confetti-canvas"></canvas>
- 
+
 <!-- AUTH SCREEN -->
 <div id="auth-screen">
   <div class="auth-card">
@@ -262,10 +277,10 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
     <p class="auth-note">Signed-in users get chats and food logs saved across devices. Guests start fresh every session.</p>
   </div>
 </div>
- 
+
 <!-- TOAST -->
 <div id="toast"></div>
- 
+
 <!-- RENAME MODAL -->
 <div class="modal-overlay" id="rename-modal">
   <div class="modal-card">
@@ -277,7 +292,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
     </div>
   </div>
 </div>
- 
+
 <!-- TEMPLATE MODAL -->
 <div class="modal-overlay" id="template-modal">
   <div class="modal-card">
@@ -290,7 +305,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
     </div>
   </div>
 </div>
- 
+
 <!-- SCANNER MODAL -->
 <div class="modal-overlay" id="scanner-modal">
   <div class="modal-card">
@@ -302,7 +317,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
     </div>
   </div>
 </div>
- 
+
 <!-- NAV -->
 <nav>
   <div class="logo">
@@ -321,7 +336,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
     <button class="signout-btn" id="signout-btn">Sign out</button>
   </div>
 </nav>
- 
+
 <div class="app-wrap">
   <!-- CHAT SIDEBAR -->
   <div class="chat-sidebar">
@@ -332,7 +347,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
     <div id="guest-notice" class="guest-notice" style="display:none;">⚠️ Guest mode — chats not saved. Sign in to sync across devices.</div>
     <div class="chat-list" id="chat-list"></div>
   </div>
- 
+
   <!-- LOG PANEL -->
   <div class="left-panel">
     <div class="panel-header">
@@ -371,10 +386,10 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
     <div class="template-bar" id="template-bar"></div>
     <div class="food-log" id="food-log"></div>
   </div>
- 
+
   <!-- RIGHT AREA -->
   <div style="display:flex;flex-direction:column;overflow:hidden;">
- 
+
     <!-- TRACKER VIEW -->
     <div class="right-panel" id="tracker-view">
       <div class="chat-header">
@@ -403,7 +418,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
         </div>
       </div>
     </div>
- 
+
     <!-- GOALS VIEW -->
     <div class="goals-panel" id="goals-view">
       <div class="section-title">Your Nutrition Goals</div>
@@ -443,7 +458,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
       <button class="goal-save-btn" id="calc-goals-btn">Calculate &amp; Save Goals</button>
       <div class="insight-card"><h3>How TDEE is Calculated</h3><p>NutriSage uses the <strong>Mifflin-St Jeor equation</strong> — the gold-standard formula used by clinical dietitians.</p></div>
     </div>
- 
+
     <!-- INSIGHTS VIEW -->
     <div class="insights-panel" id="insights-view">
       <div class="section-title">Weekly Insights</div>
@@ -461,20 +476,20 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:0.85re
       <div class="insight-card"><h3>📊 Macro Split</h3><p id="macro-split-text" style="color:var(--ink-muted);font-size:0.8rem;">No foods logged yet.</p></div>
       <button class="export-btn" id="export-btn-insights">📄 Export Weekly Report as PDF</button>
     </div>
- 
+
   </div>
 </div>
- 
+
 <script>
 (function() {
 'use strict';
- 
+
 // ── CONFIG ──────────────────────────────────────
 var JSONBIN_KEY = '$2a$10$i7DPokBsiBm67vNMZ76N/eV6/tAWr8L3WC9X8eRK7FB2O5GGXRI/K';
 var JSONBIN_BIN = '6a009e5aadc21f119a7d73b5';
 var JSONBIN_URL = 'https://api.jsonbin.io/v3/b/' + JSONBIN_BIN;
 var WORKER_URL  = 'https://nutrisage-api.pokalkhan123.workers.dev';
- 
+
 // ── STATE ────────────────────────────────────────
 var state = {
   user: null,
@@ -490,10 +505,10 @@ var state = {
   streak: 0,
   lastLogDate: null
 };
- 
+
 // ── HELPERS ──────────────────────────────────────
 function qs(id) { return document.getElementById(id); }
- 
+
 function toast(msg, isError) {
   var el = qs('toast');
   el.textContent = msg;
@@ -501,11 +516,11 @@ function toast(msg, isError) {
   clearTimeout(el._t);
   el._t = setTimeout(function() { el.className = ''; }, 2500);
 }
- 
+
 function escapeHtml(t) {
   return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
- 
+
 function formatAIText(t) {
   return t
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
@@ -514,21 +529,21 @@ function formatAIText(t) {
     .replace(/^(\d+)\. (.+)$/gm, '<div style="display:flex;gap:5px;margin:2px 0"><span>$1.</span><span>$2</span></div>')
     .replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
 }
- 
+
 function openModal(id) { qs(id).classList.add('show'); }
 function closeModal(id) { qs(id).classList.remove('show'); }
- 
+
 function parseJwt(token) {
   var base64 = token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');
   return JSON.parse(decodeURIComponent(atob(base64).split('').map(function(c){
     return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
   }).join('')));
 }
- 
+
 function userLocalKey() {
   return 'ns_user_' + state.user.email.replace(/[^a-z0-9]/gi, '_');
 }
- 
+
 function getPayload() {
   return {
     meals: state.meals, chats: state.chats, goals: state.goals,
@@ -536,14 +551,14 @@ function getPayload() {
     streak: state.streak, lastLogDate: state.lastLogDate
   };
 }
- 
+
 // ── DARK MODE ────────────────────────────────────
 function toggleDark() {
   var isDark = document.body.classList.toggle('dark');
   localStorage.setItem('ns_dark', isDark ? '1' : '0');
   qs('dark-toggle').textContent = isDark ? '☀️' : '🌙';
 }
- 
+
 function applyDark() {
   var stored = localStorage.getItem('ns_dark');
   var prefersDark = window.matchMedia('(prefers-color-scheme:dark)').matches;
@@ -552,7 +567,7 @@ function applyDark() {
     qs('dark-toggle').textContent = '☀️';
   }
 }
- 
+
 // ── AUTH ─────────────────────────────────────────
 window.handleGoogleSignIn = function(response) {
   var payload = parseJwt(response.credential);
@@ -560,23 +575,23 @@ window.handleGoogleSignIn = function(response) {
   localStorage.setItem('ns_user', JSON.stringify(state.user));
   finishAuth();
 };
- 
+
 function continueAsGuest() {
   state.user = {name: 'Guest', email: 'guest_' + Date.now(), picture: null, isGuest: true};
   finishAuth();
 }
- 
+
 function finishAuth() {
   qs('auth-screen').style.display = 'none';
   updateUserPill();
   loadData();
 }
- 
+
 function signOut() {
   localStorage.removeItem('ns_user');
   location.reload();
 }
- 
+
 function updateUserPill() {
   var u = state.user;
   qs('user-name-label').textContent = u.isGuest ? 'Guest' : u.name.split(' ')[0];
@@ -590,7 +605,7 @@ function updateUserPill() {
   }
   if (u.isGuest) qs('guest-notice').style.display = 'block';
 }
- 
+
 // ── DATA ─────────────────────────────────────────
 function applyRecord(d) {
   // Safely merge a data record into state — never overwrites with empty data
@@ -603,7 +618,7 @@ function applyRecord(d) {
   if (d.streak !== undefined) state.streak = d.streak;
   if (d.lastLogDate) state.lastLogDate = d.lastLogDate;
 }
- 
+
 function loadData() {
   if (state.user.isGuest) {
     state.meals = {Breakfast:[], Lunch:[], Dinner:[], Snacks:[]};
@@ -618,7 +633,7 @@ function loadData() {
     try { applyRecord(JSON.parse(localRaw)); } catch(e) {}
   }
   afterLoad();
- 
+
   // STEP 2: Background JSONBin sync — only merges if remote has MORE data
   fetch(JSONBIN_URL + '/latest', {headers: {'X-Access-Key': JSONBIN_KEY}})
     .then(function(r) { return r.json(); })
@@ -640,12 +655,12 @@ function loadData() {
       }
     }).catch(function() {});
 }
- 
+
 function afterLoad() {
   updateStreak(); renderChatList(); renderTemplateBar(); renderWater();
   newChat(); updateUI(); updateDateLabel(); showMorningBriefing();
 }
- 
+
 var _saveTimer = null;
 function persistData() {
   if (state.user.isGuest) return;
@@ -669,7 +684,7 @@ function persistData() {
       .catch(function() { toast('Saved locally'); });
   }, 900);
 }
- 
+
 // ── STREAK ───────────────────────────────────────
 function updateStreak() {
   var today = new Date().toDateString();
@@ -679,7 +694,7 @@ function updateStreak() {
   }
   renderStreak();
 }
- 
+
 function incrementStreak() {
   var today = new Date().toDateString();
   if (state.lastLogDate === today) return;
@@ -689,7 +704,7 @@ function incrementStreak() {
   state.lastLogDate = today;
   renderStreak(); persistData();
 }
- 
+
 function renderStreak() {
   var badge = qs('streak-badge');
   var count = qs('streak-count');
@@ -700,7 +715,7 @@ function renderStreak() {
     badge.style.display = 'none';
   }
 }
- 
+
 // ── VIEWS ────────────────────────────────────────
 function switchView(view) {
   ['tracker','goals','insights'].forEach(function(v, i) {
@@ -711,7 +726,7 @@ function switchView(view) {
   qs('insights-view').classList.toggle('active', view === 'insights');
   if (view === 'insights') renderInsights();
 }
- 
+
 // ── DATE ─────────────────────────────────────────
 function updateDateLabel() {
   var d = new Date(); d.setDate(d.getDate() + state.dayOffset);
@@ -719,7 +734,7 @@ function updateDateLabel() {
     d.toLocaleDateString('en-GB', {weekday:'short', month:'short', day:'numeric'});
   qs('date-label').textContent = lbl + ', ' + d.toLocaleDateString('en-GB', {month:'short', day:'numeric'});
 }
- 
+
 // ── WATER ────────────────────────────────────────
 function renderWater() {
   var cups = qs('water-cups'); cups.innerHTML = '';
@@ -736,12 +751,12 @@ function renderWater() {
   }
   qs('water-count').textContent = state.water + ' / 8';
 }
- 
+
 function setWater(n) {
   state.water = n; renderWater(); persistData();
   if (n === 8) toast('💧 8 glasses reached!');
 }
- 
+
 // ── TOTALS & UI ──────────────────────────────────
 function getTotals() {
   var t = {cal:0, protein:0, carbs:0, fat:0, fiber:0};
@@ -753,7 +768,7 @@ function getTotals() {
   });
   return t;
 }
- 
+
 function updateUI() {
   var t = getTotals();
   var pct = Math.min(t.cal / state.goals.calories, 1);
@@ -773,7 +788,7 @@ function updateUI() {
   if (pct >= 1 && pct < 1.05) launchConfetti();
   renderLog();
 }
- 
+
 function renderLog() {
   var c = qs('food-log'); c.innerHTML = '';
   Object.keys(state.meals).forEach(function(meal) {
@@ -802,7 +817,7 @@ function renderLog() {
     });
   });
 }
- 
+
 // ── TEMPLATES ────────────────────────────────────
 function renderTemplateBar() {
   var bar = qs('template-bar'); bar.innerHTML = '';
@@ -813,7 +828,7 @@ function renderTemplateBar() {
     bar.appendChild(chip);
   });
 }
- 
+
 function logTemplate(i) {
   var t = state.templates[i];
   if (!confirm('Log "' + t.name + '"? This will add all its foods to today\'s log.')) return;
@@ -823,7 +838,7 @@ function logTemplate(i) {
   updateUI(); persistData(); incrementStreak();
   toast('✓ "' + t.name + '" logged!');
 }
- 
+
 // ── GOALS ────────────────────────────────────────
 function calculateGoals() {
   var age = +qs('g-age').value, sex = qs('g-sex').value;
@@ -847,7 +862,7 @@ function calculateGoals() {
   qs('ring-goal').textContent = target;
   updateUI(); persistData(); toast('Goals saved!');
 }
- 
+
 // ── INSIGHTS ─────────────────────────────────────
 function renderInsights() {
   var t = getTotals();
@@ -878,7 +893,7 @@ function renderInsights() {
   if (total > 0) qs('daily-tip').textContent = tips[total % tips.length];
   renderPhotosGrid();
 }
- 
+
 function showMorningBriefing() {
   var hour = new Date().getHours();
   if (hour >= 5 && hour < 12) {
@@ -893,7 +908,7 @@ function showMorningBriefing() {
     txt.textContent = tips[new Date().getDay() % tips.length];
   }
 }
- 
+
 // ── PROGRESS PHOTOS ──────────────────────────────
 function renderPhotosGrid() {
   var grid = qs('photos-grid'); grid.innerHTML = '';
@@ -924,10 +939,10 @@ function renderPhotosGrid() {
   });
   grid.appendChild(add);
 }
- 
+
 // ── BARCODE SCANNER ──────────────────────────────
 var _scanStream = null, _scanInterval = null;
- 
+
 function openScanner() {
   openModal('scanner-modal');
   qs('scanner-status').textContent = 'Starting camera...';
@@ -962,14 +977,14 @@ function openScanner() {
       qs('scanner-status').textContent = 'Camera access denied. Please allow camera access and try again.';
     });
 }
- 
+
 function stopScanner() {
   clearInterval(_scanInterval);
   if (_scanStream) _scanStream.getTracks().forEach(function(t) { t.stop(); });
   _scanStream = null;
   closeModal('scanner-modal');
 }
- 
+
 // ── CONFETTI ─────────────────────────────────────
 var _confettiDone = false;
 function launchConfetti() {
@@ -1002,7 +1017,7 @@ function launchConfetti() {
   }
   draw();
 }
- 
+
 // ── EXPORT PDF ───────────────────────────────────
 function exportPDF() {
   var t = getTotals();
@@ -1019,12 +1034,21 @@ function exportPDF() {
       });
     }
   });
-  var html = '<!DOCTYPE html><html><head><title>NutriSage Report</title><style>body{font-family:Helvetica,sans-serif;padding:40px;color:#1A1F1C;}h1{color:#2D5A3D;}h2{color:#2D5A3D;font-size:16px;margin:24px 0 8px;}.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:20px 0;}.box{background:#E8F2EC;border-radius:10px;padding:16px;text-align:center;}.box-val{font-size:28px;font-weight:700;color:#2D5A3D;}.box-lbl{font-size:12px;color:#4A5248;}table{width:100%;border-collapse:collapse;font-size:13px;}th{background:#2D5A3D;color:white;padding:6px 8px;text-align:left;}.footer{margin-top:32px;font-size:11px;color:#8A9288;border-top:1px solid #eee;padding-top:12px;}</style></head><body><h1>🌿 NutriSage</h1><p>' + date + '</p><h2>Daily Summary</h2><div class="summary"><div class="box"><div class="box-val">' + Math.round(t.cal) + '</div><div class="box-lbl">Calories</div></div><div class="box"><div class="box-val">' + Math.round(t.protein) + 'g</div><div class="box-lbl">Protein</div></div><div class="box"><div class="box-val">' + Math.round(t.carbs) + 'g</div><div class="box-lbl">Carbs</div></div><div class="box"><div class="box-val">' + Math.round(t.fat) + 'g</div><div class="box-lbl">Fat</div></div></div><h2>Food Log (' + total + ' items)</h2><table><tr><th>Meal</th><th>Food</th><th>Calories</th><th>Protein</th><th>Carbs</th></tr>' + rows + '</table><h2>Goals</h2><p>Target: ' + state.goals.calories + ' kcal · ' + state.goals.protein + 'g protein · ' + state.goals.carbs + 'g carbs · ' + state.goals.fat + 'g fat<br>Water: ' + state.water + '/8 glasses · Streak: ' + state.streak + ' days</p><div class="footer">Generated by NutriSage — AI Nutrition Intelligence</div></body></html>';
+  var html = '<!DOCTYPE html><html><head><title>NutriSage Report</title><style>body{font-family:Helvetica,sans-serif;padding:40px;color:#1A1F1C;}h1{color:#2D5A3D;}h2{color:#2D5A3D;font-size:16px;margin:24px 0 8px;}.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:20px 0;}.box{background:#E8F2EC;border-radius:10px;padding:16px;text-align:center;}.box-val{font-size:28px;font-weight:700;color:#2D5A3D;}.box-lbl{font-size:12px;color:#4A5248;}table{width:100%;border-collapse:collapse;font-size:13px;}th{background:#2D5A3D;color:white;padding:6px 8px;text-align:left;}.footer{margin-top:32px;font-size:11px;color:#8A9288;border-top:1px solid #eee;padding-top:12px;}</style></head><body><h1>🌿 NutriSage</h1><p>' + date + '</p><h2>Daily Summary</h2><div class="summary"><div class="box"><div class="box-val">' + Math.round(t.cal) + '</div><div class="box-lbl">Calories</div></div><div class="box"><div class="box-val">' + Math.round(t.protein) + 'g</div><div class="box-lbl">Protein</div></div><div class="box"><div class="box-val">' + Math.round(t.carbs) + 'g</div><div class="box-lbl">Carbs</div></div><div class="box"><div class="box-val">' + Math.round(t.fat) + 'g</div><div class="box-lbl">Fat</div></div></div><h2>Food Log (' + total + ' items)</h2><table><tr><th>Meal</th><th>Food</th><th>Calories</th><th>Protein</th><th>Carbs</th></tr>' + rows + '</table><h2>Goals</h2><p>Target: ' + state.goals.calories + ' kcal · ' + state.goals.protein + 'g protein · ' + state.goals.carbs + 'g carbs · ' + state.goals.fat + 'g fat<br>Water: ' + state.water + '/8 glasses · Streak: ' + state.streak + ' days</p><div class="footer">Generated by NutriSage — AI Nutrition Intelligence</div>
+<!-- PWA INSTALL BANNER -->
+<div id="pwa-banner">
+  <div class="pwa-banner-text">🌿 <span>Add NutriSage to your home screen for the full app experience!</span></div>
+  <div class="pwa-banner-actions">
+    <button class="pwa-install-btn" id="pwa-install-btn">Install App</button>
+    <button class="pwa-dismiss-btn" id="pwa-dismiss-btn">Not now</button>
+  </div>
+</div>
+</body></html>';
   var w = window.open('', '_blank');
   w.document.write(html); w.document.close();
   setTimeout(function() { w.print(); }, 500);
 }
- 
+
 // ── CHAT ─────────────────────────────────────────
 function addMessage(role, html, raw) {
   var msgs = qs('chat-messages');
@@ -1033,7 +1057,7 @@ function addMessage(role, html, raw) {
   msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
   if (raw !== undefined && raw !== '') state.conversationHistory.push({role: role === 'ai' ? 'assistant' : 'user', content: raw});
 }
- 
+
 function showTyping() {
   var msgs = qs('chat-messages');
   var div = document.createElement('div'); div.className = 'msg ai typing-msg';
@@ -1041,7 +1065,7 @@ function showTyping() {
   msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
   return div;
 }
- 
+
 function sendMessage() {
   var input = qs('chat-input');
   var text = input.value.trim(); if (!text) return;
@@ -1050,13 +1074,13 @@ function sendMessage() {
   qs('quick-suggestions').style.display = 'none';
   addMessage('user', escapeHtml(text), text);
   var typing = showTyping();
- 
+
   var sys = 'You are Sage, an elite AI nutrition and dietetics expert in the NutriSage app. Deep knowledge of: macronutrients, micronutrients (vitamins A-K, minerals, trace elements), glycaemic index, insulin response, bioavailability, phytonutrients, antioxidants. Full food database knowledge — calories and macros for thousands of foods raw/cooked/processed/restaurant/international. Metabolism: BMR, TDEE, Mifflin-St Jeor, Harris-Benedict, TEF, NEAT, hormones. Body composition: deficit/surplus, muscle protein synthesis, refeeding, body recomposition. Dietary approaches: omnivore, vegetarian, vegan, Mediterranean, DASH, keto, carnivore, paleo, IIFYM, intuitive eating, IF, caloric cycling. Clinical: diabetes, CVD, renal diet, coeliac, IBS, food allergies, sports nutrition, supplements. Food science: NOVA classification, food labelling, cooking and nutrient retention.\nWHEN USER LOGS FOOD: respond helpfully AND append at the very end:\n<food_data>{"name":"Food Name","cal":0,"protein":0,"carbs":0,"fat":0,"fiber":0,"meal":"Breakfast"}</food_data>\nMeal = Breakfast|Lunch|Dinner|Snacks. Time: ' + new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}) + '.\nBe specific with numbers. Warm and encouraging. Never preachy.\nUser goals: ' + state.goals.calories + 'kcal | ' + state.goals.protein + 'g protein | ' + state.goals.carbs + 'g carbs | ' + state.goals.fat + 'g fat.\nToday intake: ' + JSON.stringify(getTotals()) + '.';
- 
+
   var messages = [{role:'system', content: sys}];
   state.conversationHistory.slice(-14).forEach(function(m) { messages.push({role: m.role, content: m.content}); });
   messages.push({role:'user', content: text});
- 
+
   fetch(WORKER_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({messages: messages})})
     .then(function(r) { return r.json(); })
     .then(function(data) {
@@ -1078,7 +1102,7 @@ function sendMessage() {
       qs('send-btn').disabled = false;
     });
 }
- 
+
 var _pendingFood = {};
 function renderFoodCard(food) {
   var id = 'f' + Date.now();
@@ -1088,7 +1112,7 @@ function renderFoodCard(food) {
   }).join('');
   return '<div class="food-result-card"><div class="frc-name">' + food.name + '</div><div class="frc-macros"><div class="frc-macro"><span class="frc-macro-val">' + Math.round(food.cal) + '</span><span class="frc-macro-lbl">kcal</span></div><div class="frc-macro"><span class="frc-macro-val">' + food.protein + 'g</span><span class="frc-macro-lbl">protein</span></div><div class="frc-macro"><span class="frc-macro-val">' + food.carbs + 'g</span><span class="frc-macro-lbl">carbs</span></div><div class="frc-macro"><span class="frc-macro-val">' + food.fat + 'g</span><span class="frc-macro-lbl">fat</span></div></div><select id="ms_' + id + '" style="width:100%;margin-bottom:7px;padding:5px 9px;border:1px solid var(--border-strong);border-radius:7px;font-family:inherit;font-size:0.8rem;background:var(--cream);color:var(--ink);outline:none;">' + opts + '</select><button class="frc-add-btn" data-fid="' + id + '">➕ Add to Log</button></div>';
 }
- 
+
 // ── CHAT MANAGEMENT ──────────────────────────────
 function newChat() {
   state.currentChatId = 'chat_' + Date.now();
@@ -1099,7 +1123,7 @@ function newChat() {
   addMessage('ai', '👋 Hello! I\'m <strong>Sage</strong>, your personal nutrition intelligence assistant.<br><br>I can help you with:<br>• 🍽️ Calorie &amp; macro lookup for any food<br>• 🧮 Portion estimation from descriptions<br>• 🔬 Micronutrient &amp; supplement guidance<br>• 🧠 Nutrition science questions<br>• 🎯 Meal planning &amp; goal optimisation<br>• 📷 Barcode scanning (tap the camera button!)<br><br>Just tell me what you ate, or ask me anything!', '');
   renderChatList();
 }
- 
+
 function saveCurrentChat() {
   if (!state.conversationHistory.length) { toast('Nothing to save yet!', true); return; }
   var title = qs('current-chat-title').textContent;
@@ -1111,7 +1135,7 @@ function saveCurrentChat() {
   qs('current-chat-title').textContent = chatTitle;
   renderChatList(); persistData(); toast('Chat saved!');
 }
- 
+
 function generateTitle() {
   var first = null;
   state.conversationHistory.forEach(function(m) { if (!first && m.role === 'user') first = m; });
@@ -1119,7 +1143,7 @@ function generateTitle() {
   var t = first.content.replace(/<[^>]+>/g, '').slice(0, 35);
   return t.length < first.content.length ? t + '…' : t;
 }
- 
+
 function loadChat(id) {
   var chat = null;
   state.chats.forEach(function(c) { if (c.id === id) chat = c; });
@@ -1133,14 +1157,14 @@ function loadChat(id) {
   });
   renderChatList();
 }
- 
+
 function deleteChat(id) {
   if (!confirm('Delete this chat?')) return;
   state.chats = state.chats.filter(function(c) { return c.id !== id; });
   if (state.currentChatId === id) newChat();
   renderChatList(); persistData(); toast('Chat deleted');
 }
- 
+
 var _renameId = null;
 function openRename(id) {
   _renameId = id;
@@ -1149,7 +1173,7 @@ function openRename(id) {
   openModal('rename-modal');
   setTimeout(function() { qs('rename-input').focus(); }, 50);
 }
- 
+
 function confirmRename() {
   var val = qs('rename-input').value.trim();
   if (!val) { toast('Enter a name', true); return; }
@@ -1157,7 +1181,7 @@ function confirmRename() {
   if (state.currentChatId === _renameId) qs('current-chat-title').textContent = val;
   closeModal('rename-modal'); renderChatList(); persistData(); toast('Renamed!');
 }
- 
+
 function renderChatList() {
   var list = qs('chat-list');
   if (!state.chats.length) {
@@ -1182,7 +1206,7 @@ function renderChatList() {
     btn.addEventListener('click', function(e) { e.stopPropagation(); deleteChat(this.getAttribute('data-id')); });
   });
 }
- 
+
 // ── EVENT LISTENERS ──────────────────────────────
 function setupEvents() {
   // Auth
@@ -1254,7 +1278,7 @@ function setupEvents() {
     qs(id).addEventListener('click', function(e) { if (e.target === this) { if (id === 'scanner-modal') stopScanner(); else closeModal(id); } });
   });
 }
- 
+
 // ── BOOT ─────────────────────────────────────────
 applyDark();
 setupEvents();
@@ -1263,8 +1287,64 @@ if (stored) {
   try { state.user = JSON.parse(stored); finishAuth(); }
   catch(e) { /* show auth screen */ }
 }
- 
+
+
+// ── PWA ──────────────────────────────────────────
+var _deferredPrompt = null;
+
+window.addEventListener('beforeinstallprompt', function(e) {
+  e.preventDefault();
+  _deferredPrompt = e;
+  // Show banner if not dismissed before
+  if (!localStorage.getItem('pwa_dismissed')) {
+    setTimeout(function() { qs('pwa-banner').classList.add('show'); }, 2000);
+  }
+});
+
+window.addEventListener('appinstalled', function() {
+  qs('pwa-banner').classList.remove('show');
+  _deferredPrompt = null;
+  toast('🎉 NutriSage installed!');
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  var installBtn = qs('pwa-install-btn');
+  var dismissBtn = qs('pwa-dismiss-btn');
+  if (installBtn) {
+    installBtn.addEventListener('click', function() {
+      if (_deferredPrompt) {
+        _deferredPrompt.prompt();
+        _deferredPrompt.userChoice.then(function(result) {
+          if (result.outcome === 'accepted') toast('Installing NutriSage...');
+          _deferredPrompt = null;
+          qs('pwa-banner').classList.remove('show');
+        });
+      }
+    });
+  }
+  if (dismissBtn) {
+    dismissBtn.addEventListener('click', function() {
+      qs('pwa-banner').classList.remove('show');
+      localStorage.setItem('pwa_dismissed', '1');
+    });
+  }
+  // Register service worker
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').then(function() {
+      console.log('NutriSage SW registered');
+    }).catch(function() {});
+  }
+});
 })();
 </script>
+
+<!-- PWA INSTALL BANNER -->
+<div id="pwa-banner">
+  <div class="pwa-banner-text">🌿 <span>Add NutriSage to your home screen for the full app experience!</span></div>
+  <div class="pwa-banner-actions">
+    <button class="pwa-install-btn" id="pwa-install-btn">Install App</button>
+    <button class="pwa-dismiss-btn" id="pwa-dismiss-btn">Not now</button>
+  </div>
+</div>
 </body>
 </html>
